@@ -1,0 +1,82 @@
+{
+  "name": "ogrite",
+  "author": {
+    "name": "Kvnqpoza",
+    "email": "kvnqpoza@gmail.com"
+  },
+  "version": "0.1.0",
+  "description": "Deterministic visual artifact compiler for Open Graph images.",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./runtime": {
+      "import": "./dist/runtime.js",
+      "require": "./dist/runtime.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "runtime": [
+        "./dist/runtime.d.ts"
+      ]
+    }
+  },
+  "bin": {
+    "ogrite": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "og-image",
+    "open-graph",
+    "build-tool",
+    "screenshot",
+    "compiler",
+    "static-generation"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "playwright": ">=1.40.0",
+    "sharp": ">=0.33.0"
+  },
+  "peerDependenciesMeta": {
+    "playwright": {
+      "optional": false
+    },
+    "sharp": {
+      "optional": false
+    }
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "chokidar": "^4.0.0",
+    "jiti": "^2.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "playwright": "^1.49.0",
+    "sharp": "^0.33.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -110,7 +110,3 @@ const path = generator.normalize("/blog/post");
 | `routeDiscovery` | `RouteDiscovery`                 | `manual`                   | Route detection strategy       |
 | `normalize`      | `NormalizeOptions`               | `slugify, "home"`          | Output path mapping            |
 | `logLevel`       | `'silent' \| 'info' \| 'debug'`  | `'info'`                   | Verbosity                      |
-
-## License
-
-MIT

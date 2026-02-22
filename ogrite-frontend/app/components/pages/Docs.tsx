@@ -1,10 +1,19 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, Menu } from "lucide-react";
+import { ChevronRight, Menu, X } from "lucide-react";
 import { FadeIn } from "../animations/FadeIn";
 import { CodeBlock } from "../CodeBlock";
+
+/* scroll helper — accounts for fixed header height (64px) + 16px buffer */
+const HEADER_OFFSET = 80;
+function scrollToId(id: string) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const top = el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
+  window.scrollTo({ top, behavior: "smooth" });
+}
 
 /* ------------------------------------------------------------------ */
 /*  Sidebar section model                                             */
@@ -104,10 +113,37 @@ export function Docs() {
     setExpandedSections(next);
   };
 
+  const handleSectionClick = useCallback(
+    (id: string, hasSubsections: boolean) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      // "in view" = already near the top of the viewport under the header
+      const isInView = rect.top >= 0 && rect.top <= HEADER_OFFSET + 30;
+
+      scrollToId(id);
+
+      if (hasSubsections) {
+        if (isInView) {
+          toggleSection(id);
+        } else {
+          setExpandedSections((prev) => new Set([...prev, id]));
+        }
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [expandedSections],
+  );
+
+  const handleSubClick = useCallback((e: React.MouseEvent, id: string) => {
+    e.preventDefault();
+    scrollToId(id);
+  }, []);
+
   return (
     <div className="min-h-screen pt-24 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-[240px_1fr] gap-10">
+        <div className="grid lg:grid-cols-[240px_1fr] gap-10 min-w-0">
           {/* ── Sidebar ─────────────────────────────────────────── */}
           <div className="hidden lg:block">
             <div className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto pr-2">
@@ -116,7 +152,9 @@ export function Docs() {
                   {docSections.map((section) => (
                     <div key={section.id}>
                       <button
-                        onClick={() => toggleSection(section.id)}
+                        onClick={() =>
+                          handleSectionClick(section.id, !!section.subsections)
+                        }
                         className="w-full flex items-center justify-between px-3 py-2 rounded-md text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--background-surface)] transition-colors text-sm font-medium"
                       >
                         {section.title}
@@ -143,6 +181,7 @@ export function Docs() {
                                 <a
                                   key={sub.id}
                                   href={`#${sub.id}`}
+                                  onClick={(e) => handleSubClick(e, sub.id)}
                                   className="block px-3 py-1.5 rounded-md text-xs text-[var(--text-muted)] hover:text-[var(--text-secondary)] hover:bg-[var(--background-surface)] transition-colors"
                                 >
                                   {sub.title}
@@ -159,42 +198,64 @@ export function Docs() {
           </div>
 
           {/* ── Main content ────────────────────────────────────── */}
-          <div>
-            <FadeIn className="mb-12">
-              <h1 className="text-5xl font-bold mb-4">Documentation</h1>
-              <p className="text-xl text-[var(--text-secondary)]">
+          <div className="min-w-0 w-full overflow-hidden">
+            <FadeIn className="mb-8 sm:mb-12">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4">
+                Documentation
+              </h1>
+              <p className="text-base sm:text-xl text-[var(--text-secondary)]">
                 Complete reference for the Ogrite build-time OG image compiler.
               </p>
             </FadeIn>
 
             {/* Mobile nav */}
-            <div className="lg:hidden mb-8">
+            <div className="lg:hidden mb-8 relative">
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="flex items-center gap-2 px-4 py-2 rounded-md bg-[var(--background-surface)] text-[var(--text-primary)] font-medium hover:bg-[var(--background-elevated)] transition-colors w-full"
               >
                 <Menu className="w-4 h-4" />
-                Sections
+                <span className="flex-1 text-left">Jump to section</span>
+                <X
+                  className={`w-4 h-4 transition-transform ${
+                    mobileMenuOpen
+                      ? "opacity-100"
+                      : "opacity-0 pointer-events-none"
+                  }`}
+                />
               </button>
               <AnimatePresence>
                 {mobileMenuOpen && (
-                  <motion.nav
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="mt-2 space-y-1 bg-[var(--background-surface)] rounded-md p-4"
-                  >
-                    {docSections.map((s) => (
-                      <a
-                        key={s.id}
-                        href={`#${s.id}`}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="block px-4 py-2 rounded text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--background-elevated)] transition-colors"
-                      >
-                        {s.title}
-                      </a>
-                    ))}
-                  </motion.nav>
+                  <>
+                    {/* Backdrop */}
+                    <div
+                      className="fixed inset-0 z-10"
+                      onClick={() => setMobileMenuOpen(false)}
+                    />
+                    <motion.nav
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="absolute top-full left-0 right-0 z-20 mt-1 bg-[var(--background-elevated)] rounded-xl border border-[var(--border-subtle)] shadow-xl overflow-hidden"
+                    >
+                      <div className="p-2 max-h-72 overflow-y-auto">
+                        {docSections.map((s) => (
+                          <a
+                            key={s.id}
+                            href={`#${s.id}`}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              scrollToId(s.id);
+                              setMobileMenuOpen(false);
+                            }}
+                            className="block px-4 py-2.5 rounded-lg text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--background-surface)] transition-colors"
+                          >
+                            {s.title}
+                          </a>
+                        ))}
+                      </div>
+                    </motion.nav>
+                  </>
                 )}
               </AnimatePresence>
             </div>
@@ -245,7 +306,7 @@ export function Docs() {
                 </p>
 
                 <div className="space-y-8">
-                  <div id="install-packages">
+                  <div id="install-packages" className="scroll-mt-24">
                     <h3 className="text-lg font-semibold mb-3">
                       Install packages
                     </h3>
@@ -267,7 +328,7 @@ export function Docs() {
                     </p>
                   </div>
 
-                  <div id="install-browser">
+                  <div id="install-browser" className="scroll-mt-24">
                     <h3 className="text-lg font-semibold mb-3">
                       Install browser binary
                     </h3>

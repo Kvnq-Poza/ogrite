@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Github, Copy, Check } from "lucide-react";
@@ -11,6 +11,7 @@ export function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [copied, setCopied] = useState(false);
   const pathname = usePathname();
+  const navRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,6 +26,18 @@ export function Navigation() {
     setMobileMenuOpen(false);
   }, [pathname]);
 
+  // Close mobile menu on outside click
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const handleOutside = (e: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(e.target as Node)) {
+        setMobileMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleOutside);
+    return () => document.removeEventListener("mousedown", handleOutside);
+  }, [mobileMenuOpen]);
+
   const handleCopyInstall = async () => {
     await navigator.clipboard.writeText("npm install ogrite");
     setCopied(true);
@@ -38,6 +51,7 @@ export function Navigation() {
 
   return (
     <motion.nav
+      ref={navRef}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
           ? "bg-[var(--background-primary)]/80 backdrop-blur-md border-b border-[var(--border-default)] shadow-lg"

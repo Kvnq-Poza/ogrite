@@ -4,8 +4,19 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { StaggerContainer, StaggerItem } from "./animations/StaggerContainer";
 
+interface FooterLink {
+  label: string;
+  href: string;
+  external?: boolean;
+}
+
+interface FooterSection {
+  heading: string;
+  links: FooterLink[];
+}
+
 export function Footer() {
-  const footerSections = [
+  const footerSections: FooterSection[] = [
     {
       heading: "Ogrite",
       links: [

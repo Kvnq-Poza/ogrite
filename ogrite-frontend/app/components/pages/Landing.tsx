@@ -293,7 +293,7 @@ export function Landing() {
       </section>
 
       {/* Trust Bar */}
-      <section className="py-12 border-y border-[var(--border-default)] bg-[var(--background-surface)]">
+      <section className="py-12 border-y border-[var(--border-default)] bg-[var(--background-surface)] mt-12 lg:mt-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <StaggerContainer className="flex flex-wrap justify-center gap-8 text-sm text-[var(--text-muted)]">
             {trustItems.map((item, index) => (

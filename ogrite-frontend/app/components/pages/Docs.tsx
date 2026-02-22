@@ -245,8 +245,10 @@ export function Docs() {
                             href={`#${s.id}`}
                             onClick={(e) => {
                               e.preventDefault();
-                              scrollToId(s.id);
                               setMobileMenuOpen(false);
+                              setTimeout(() => {
+                                scrollToId(s.id);
+                              }, 150);
                             }}
                             className="block px-4 py-2.5 rounded-lg text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--background-surface)] transition-colors"
                           >

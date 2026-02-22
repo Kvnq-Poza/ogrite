@@ -95,7 +95,7 @@ export function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            MIT License · Built with Ogrite
+            Built for devs ❤️
           </motion.p>
         </div>
       </div>

@@ -553,10 +553,10 @@ routeDiscovery: {
   source: '/sitemap.xml',
 }
 
-// Filesystem — scans your pages directory
+// Filesystem — scans your pages directory (static routes only)
 routeDiscovery: {
   strategy: 'filesystem',
-  source: 'src/app',  // or 'src/pages'
+  source: 'src/app',  // optional — auto-detects app/, src/app/, pages/, src/pages/ if omitted
 }
 
 // Manual — explicit route list
@@ -572,6 +572,21 @@ routeDiscovery: {
 }`}
                       language="typescript"
                     />
+                    <p className="text-xs text-[var(--text-muted)] mt-3">
+                      <strong>Note:</strong> The filesystem strategy only
+                      detects static routes. Dynamic route segments (e.g.{" "}
+                      <code className="text-[var(--accent-primary)]">
+                        [slug]
+                      </code>
+                      ,{" "}
+                      <code className="text-[var(--accent-primary)]">
+                        [...params]
+                      </code>
+                      ) are skipped because their concrete values cannot be
+                      determined from the filesystem. For dynamic routes, use
+                      the <strong>sitemap</strong> or <strong>custom</strong>{" "}
+                      strategy.
+                    </p>
                   </div>
                 </div>
 

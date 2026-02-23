@@ -4,7 +4,7 @@
     "name": "Kvnqpoza",
     "email": "kvnqpoza@gmail.com"
   },
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Deterministic visual artifact compiler for Open Graph images.",
   "type": "module",
   "exports": {

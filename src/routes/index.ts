@@ -18,11 +18,6 @@ export function createRouteSource(
       return createSitemapSource(baseUrl, discovery.source ?? "/sitemap.xml");
 
     case "filesystem":
-      if (!discovery.source) {
-        throw new Error(
-          '[ogrite] RouteDiscoveryError: "source" is required for filesystem strategy (e.g. "pages/" or "app/").',
-        );
-      }
       return createFilesystemSource(discovery.source);
 
     case "manual":

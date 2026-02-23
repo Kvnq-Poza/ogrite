@@ -1,0 +1,20 @@
+{
+  "/getting-started": {
+    "route": "/getting-started",
+    "outputPath": "public/og/getting-started.webp",
+    "hash": "4946c232",
+    "generatedAt": "2026-02-23T10:01:42.913Z"
+  },
+  "/docs": {
+    "route": "/docs",
+    "outputPath": "public/og/docs.webp",
+    "hash": "c1694b4e",
+    "generatedAt": "2026-02-23T10:01:43.086Z"
+  },
+  "/": {
+    "route": "/",
+    "outputPath": "public/og/home.webp",
+    "hash": "b13643dc",
+    "generatedAt": "2026-02-23T10:01:43.839Z"
+  }
+}

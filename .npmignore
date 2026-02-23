@@ -1,0 +1,3 @@
+ogrite-frontend/
+dist/*.map
+dist/**/*.map

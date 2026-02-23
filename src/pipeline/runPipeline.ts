@@ -57,6 +57,13 @@ export async function runPipeline(ctx: PipelineContext): Promise<BuildReport> {
     `Found ${routes.length} route(s) via "${routeSource.name}" strategy.`,
   );
 
+  if (routeSource.name === "filesystem") {
+    logger.info(
+      "Note: The filesystem strategy only detects static routes. " +
+        'Dynamic route segments (e.g. [slug]) are skipped. Use the "sitemap" or "custom" strategy to include dynamic routes.',
+    );
+  }
+
   if (routes.length === 0) {
     logger.warn("No routes to process.");
     return report.finalize();

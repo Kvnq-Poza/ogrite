@@ -20,6 +20,13 @@ export async function checkCommand(): Promise<void> {
   const routeSource = createRouteSource(config.routeDiscovery, config.baseUrl);
   const routes = await routeSource.getRoutes();
 
+  if (routeSource.name === "filesystem") {
+    logger.info(
+      "Note: The filesystem strategy only detects static routes. " +
+        'Dynamic route segments (e.g. [slug]) are skipped. Use the "sitemap" or "custom" strategy to include dynamic routes.',
+    );
+  }
+
   // Read manifest
   const manifest = await readManifest(config.outputDir);
 

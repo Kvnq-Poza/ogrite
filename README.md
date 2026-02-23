@@ -4,17 +4,26 @@ Deterministic visual artifact compiler for Open Graph images.
 
 Ogrite converts application routes into static, optimized OG images at build time — the same way bundlers turn code into assets.
 
-## Quick Start
+## Installation
 
 ```bash
-npm install ogrite playwright sharp
+npm install @ogrite/ogrite playwright sharp --save-dev
+# or
+yarn add -D @ogrite/ogrite playwright sharp
+# or
+pnpm add -D @ogrite/ogrite playwright sharp
+```
+
+Then install the browser binaries:
+
+```bash
 npx playwright install chromium
 ```
 
 Create `ogrite.config.ts`:
 
 ```ts
-import { defineConfig } from "ogrite";
+import { defineConfig } from "@ogrite/ogrite";
 
 export default defineConfig({
   baseUrl: "http://localhost:3000",
@@ -29,18 +38,18 @@ export default defineConfig({
 Generate images:
 
 ```bash
-npx ogrite generate
+npx @ogrite/ogrite generate
 ```
 
 ## CLI Commands
 
-| Command                           | Description                                    |
-| --------------------------------- | ---------------------------------------------- |
-| `ogrite generate`                 | Run the full pipeline and emit image artifacts |
-| `ogrite generate --concurrency 8` | Parallel rendering with 8 workers              |
-| `ogrite watch`                    | Incremental watcher — regenerate on change     |
-| `ogrite check`                    | Validate artifacts against manifest and routes |
-| `ogrite clean`                    | Remove all generated artifacts                 |
+| Command                                       | Description                                    |
+| --------------------------------------------- | ---------------------------------------------- |
+| `npx @ogrite/ogrite generate`                 | Run the full pipeline and emit image artifacts |
+| `npx @ogrite/ogrite generate --concurrency 8` | Parallel rendering with 8 workers              |
+| `npx @ogrite/ogrite watch`                    | Incremental watcher — regenerate on change     |
+| `npx @ogrite/ogrite check`                    | Validate artifacts against manifest and routes |
+| `npx @ogrite/ogrite clean`                    | Remove all generated artifacts                 |
 
 ## Route Discovery Strategies
 
@@ -48,8 +57,10 @@ npx ogrite generate
 // Sitemap
 routeDiscovery: { strategy: 'sitemap', source: '/sitemap.xml' }
 
-// Filesystem scan
+// Filesystem scan (static routes only — dynamic segments like [slug] are skipped)
 routeDiscovery: { strategy: 'filesystem', source: 'app/' }
+// source is optional — if omitted, auto-detects common directories (app/, src/app/, pages/, src/pages/)
+routeDiscovery: { strategy: 'filesystem' }
 
 // Manual list
 routeDiscovery: { strategy: 'manual', routes: ['/', '/about'] }
@@ -64,21 +75,29 @@ routeDiscovery: {
 }
 ```
 
-## Runtime Helper
+> **Note:** The `filesystem` strategy only discovers static routes. Dynamic route segments (e.g. `[slug]`, `[...params]`) are skipped because their concrete values cannot be determined from the filesystem alone. To include dynamic routes, use the `sitemap` strategy (which reads your pre-built sitemap) or the `custom` strategy with an async resolver that enumerates the actual paths. The `source` option is optional — if omitted, the resolver auto-detects common framework directories (`app/`, `src/app/`, `pages/`, `src/pages/`).
+
+## Use in your app
 
 Resolve a route to its generated OG image path at build time:
 
-```ts
-import { getOgImagePath } from "ogrite/runtime";
+```typescript
+import { getOgImagePath } from "@ogrite/ogrite/runtime";
 
-const path = getOgImagePath("/blog/post");
-// → 'public/og/blog/post.webp'
+export function generateMetadata({ params }) {
+  const ogImage = getOgImagePath(`/blog/${params.slug}`);
+  return {
+    openGraph: {
+      images: ogImage ? [{ url: ogImage }] : [],
+    },
+  };
+}
 ```
 
 ## Programmatic API
 
 ```ts
-import { createOgGenerator, defineConfig } from "ogrite";
+import { createOgGenerator, defineConfig } from "@ogrite/ogrite";
 
 const generator = createOgGenerator({
   baseUrl: "http://localhost:3000",

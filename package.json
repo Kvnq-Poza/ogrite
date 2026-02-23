@@ -1,5 +1,5 @@
 {
-  "name": "ogrite",
+  "name": "@ogrite/ogrite",
   "author": {
     "name": "Kvnqpoza",
     "email": "kvnqpoza@gmail.com"
@@ -28,10 +28,13 @@
     }
   },
   "bin": {
-    "ogrite": "./dist/cli.js"
+    "ogrite": "dist/cli.js"
   },
   "files": [
-    "dist",
+    "dist/**/*.js",
+    "dist/**/*.cjs",
+    "dist/**/*.d.ts",
+    "dist/**/*.d.cts",
     "README.md"
   ],
   "scripts": {

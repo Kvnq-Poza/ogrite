@@ -39,7 +39,7 @@ export function Navigation() {
   }, [mobileMenuOpen]);
 
   const handleCopyInstall = async () => {
-    await navigator.clipboard.writeText("npm install ogrite");
+    await navigator.clipboard.writeText("npm install @ogrite/ogrite");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -159,7 +159,7 @@ export function Navigation() {
                     className="flex items-center gap-2"
                   >
                     <Copy className="w-4 h-4" />
-                    npm install ogrite
+                    npm install @ogrite/ogrite
                   </motion.span>
                 )}
               </AnimatePresence>
@@ -279,7 +279,7 @@ export function Navigation() {
                   ) : (
                     <>
                       <Copy className="w-4 h-4" />
-                      npm install ogrite
+                      npm install @ogrite/ogrite
                     </>
                   )}
                 </button>

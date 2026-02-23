@@ -20,14 +20,14 @@ import { StaggerContainer, StaggerItem } from "../animations/StaggerContainer";
 import { ScaleIn } from "../animations/ScaleIn";
 import { useState, useEffect } from "react";
 
-const configExample = `import { defineConfig } from 'ogrite';
+const configExample = `import { defineConfig } from '@ogrite/ogrite';
 
 export default defineConfig({
   baseUrl: 'http://localhost:3000',
   outputDir: 'public/og'
 });`;
 
-const cliOutput = `$ npx ogrite generate
+const cliOutput = `$ npx @ogrite/ogrite generate
 
   Discovered  48 routes
   Rendered    48 / 48
@@ -71,7 +71,7 @@ const features = [
     icon: Terminal,
     title: "CI-ready CLI",
     description:
-      "ogrite generate, watch, check, and clean. Non-zero exit on failure. JSON reports for downstream tooling.",
+      "@ogrite/ogrite generate, watch, check, and clean. Non-zero exit on failure. JSON reports for downstream tooling.",
   },
 ];
 
@@ -126,7 +126,7 @@ function AnimatedTerminal() {
             whileHover={{ scale: 1.2 }}
           />
           <span className="ml-4 text-[var(--text-muted)] font-mono">
-            ogrite generate
+            @ogrite/ogrite generate
           </span>
         </div>
         <div className="font-mono text-sm space-y-1 min-h-[120px]">

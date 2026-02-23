@@ -33,7 +33,11 @@ export function Footer() {
           href: "https://github.com/Kvnq-Poza/ogrite",
           external: true,
         },
-        { label: "npm", href: "https://npmjs.com", external: true },
+        {
+          label: "npm",
+          href: "https://www.npmjs.com/package/@ogrite/ogrite",
+          external: true,
+        },
         {
           label: "Issues",
           href: "https://github.com/Kvnq-Poza/ogrite/issues",

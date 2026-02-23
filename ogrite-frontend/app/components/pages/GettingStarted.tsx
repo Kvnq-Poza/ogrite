@@ -96,7 +96,7 @@ export function GettingStarted() {
             <StepHeader step={steps[0]} />
             <div className="space-y-3 mt-4">
               <CodeBlock
-                code="npm install ogrite playwright sharp --save-dev"
+                code="npm install @ogrite/ogrite playwright sharp --save-dev"
                 language="bash"
                 variant="terminal"
               />
@@ -131,7 +131,7 @@ export function GettingStarted() {
             <StepHeader step={steps[2]} />
             <div className="mt-4">
               <CodeBlock
-                code={`import { defineConfig } from 'ogrite';
+                code={`import { defineConfig } from '@ogrite/ogrite';
 
 export default defineConfig({
   baseUrl: 'http://localhost:3000',
@@ -243,12 +243,12 @@ export default defineConfig({
             <StepHeader step={steps[4]} />
             <div className="mt-4 space-y-4">
               <CodeBlock
-                code="npx ogrite generate"
+                code="npx @ogrite/ogrite generate"
                 language="bash"
                 variant="terminal"
               />
               <CodeBlock
-                code={`$ npx ogrite generate
+                code={`$ npx @ogrite/ogrite generate
 
   Discovered  12 routes
   Rendered    12 / 12
@@ -272,7 +272,7 @@ export default defineConfig({
                 the manifest — no need to import the full pipeline.
               </p>
               <CodeBlock
-                code={`import { getOgImagePath } from 'ogrite/runtime';
+                code={`import { getOgImagePath } from '@ogrite/ogrite/runtime';
 
 export function generateMetadata({ params }) {
   const ogImage = getOgImagePath(\`/blog/\${params.slug}\`);
@@ -296,11 +296,11 @@ export function generateMetadata({ params }) {
               <p className="text-sm text-[var(--text-secondary)]">
                 Add{" "}
                 <code className="text-[var(--accent-primary)]">
-                  ogrite generate
+                  @ogrite/ogrite generate
                 </code>{" "}
                 to your build step and{" "}
                 <code className="text-[var(--accent-primary)]">
-                  ogrite check
+                  @ogrite/ogrite check
                 </code>{" "}
                 as a validation gate.{" "}
                 <code className="text-[var(--accent-primary)]">check</code>{" "}
@@ -312,10 +312,10 @@ export function generateMetadata({ params }) {
   run: npx playwright install chromium
 
 - name: Generate OG images
-  run: npx ogrite generate
+  run: npx @ogrite/ogrite generate
 
 - name: Verify images
-  run: npx ogrite check`}
+  run: npx @ogrite/ogrite check`}
                 language="yaml"
                 filename=".github/workflows/build.yml"
               />

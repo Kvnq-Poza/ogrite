@@ -313,7 +313,7 @@ export function Docs() {
                       Install packages
                     </h3>
                     <CodeBlock
-                      code="npm install ogrite playwright sharp --save-dev"
+                      code="npm install @ogrite/ogrite playwright sharp --save-dev"
                       language="bash"
                       variant="terminal"
                     />
@@ -369,7 +369,7 @@ export function Docs() {
                 <div id="config-file" className="mb-10 scroll-mt-24">
                   <h3 className="text-xl font-semibold mb-3">Config file</h3>
                   <CodeBlock
-                    code={`import { defineConfig } from 'ogrite';
+                    code={`import { defineConfig } from '@ogrite/ogrite';
 
 export default defineConfig({
   baseUrl: 'http://localhost:3000',
@@ -675,7 +675,7 @@ routeDiscovery: {
                   <code className="text-[var(--accent-primary)]">ogrite</code>{" "}
                   binary ships with the package. Run commands via{" "}
                   <code className="text-[var(--accent-primary)]">
-                    npx ogrite
+                    npx @ogrite/ogrite
                   </code>{" "}
                   or add scripts to your{" "}
                   <code className="text-[var(--accent-primary)]">
@@ -694,7 +694,7 @@ routeDiscovery: {
                       → write artifacts → update manifest.
                     </p>
                     <CodeBlock
-                      code="npx ogrite generate"
+                      code="npx @ogrite/ogrite generate"
                       language="bash"
                       variant="terminal"
                     />
@@ -722,7 +722,7 @@ routeDiscovery: {
                       under the hood.
                     </p>
                     <CodeBlock
-                      code="npx ogrite watch"
+                      code="npx @ogrite/ogrite watch"
                       language="bash"
                       variant="terminal"
                     />
@@ -736,7 +736,7 @@ routeDiscovery: {
                       missing images are found — ideal for CI.
                     </p>
                     <CodeBlock
-                      code="npx ogrite check"
+                      code="npx @ogrite/ogrite check"
                       language="bash"
                       variant="terminal"
                     />
@@ -752,7 +752,7 @@ routeDiscovery: {
                       file.
                     </p>
                     <CodeBlock
-                      code="npx ogrite clean"
+                      code="npx @ogrite/ogrite clean"
                       language="bash"
                       variant="terminal"
                     />
@@ -789,7 +789,7 @@ routeDiscovery: {
                       instance.
                     </p>
                     <CodeBlock
-                      code={`import { createOgGenerator } from 'ogrite';
+                      code={`import { createOgGenerator } from '@ogrite/ogrite';
 
 const generator = createOgGenerator({
   baseUrl: 'http://localhost:3000',
@@ -836,7 +836,7 @@ const filePath = generator.normalize('/about');
                       is missing.
                     </p>
                     <CodeBlock
-                      code={`import { defineConfig } from 'ogrite';
+                      code={`import { defineConfig } from '@ogrite/ogrite';
 
 const config = defineConfig({
   baseUrl: 'http://localhost:3000',
@@ -927,7 +927,7 @@ interface OgriteError {
                     if the manifest or entry is not found.
                   </p>
                   <CodeBlock
-                    code={`import { getOgImagePath } from 'ogrite/runtime';
+                    code={`import { getOgImagePath } from '@ogrite/ogrite/runtime';
 
 // Reads from <cwd>/public/og/.ogrite-manifest.json by default
 const path = getOgImagePath('/blog/hello-world');
@@ -1094,7 +1094,9 @@ const path2 = getOgImagePath('/about', './dist/og');`}
                 <h2 className="text-3xl font-bold mb-4">Type Reference</h2>
                 <p className="text-[var(--text-secondary)] mb-6">
                   All public types are exported from the{" "}
-                  <code className="text-[var(--accent-primary)]">ogrite</code>{" "}
+                  <code className="text-[var(--accent-primary)]">
+                    @ogrite/ogrite
+                  </code>{" "}
                   package and can be imported directly.
                 </p>
                 <CodeBlock
@@ -1119,7 +1121,7 @@ const path2 = getOgImagePath('/about', './dist/og');`}
   Manifest,            // Record<string, ManifestEntry>
   Renderer,            // Adapter interface: { init(), render(), close() }
   Optimizer,           // Adapter interface: { optimize() }
-} from 'ogrite';`}
+} from '@ogrite/ogrite';`}
                   language="typescript"
                   showLineNumbers
                 />

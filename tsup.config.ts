@@ -13,12 +13,4 @@ export default defineConfig({
   sourcemap: true,
   target: "node18",
   external: ["playwright", "sharp"],
-  banner: ({ format }) => {
-    if (format === "esm") {
-      return {
-        js: "#!/usr/bin/env node\n",
-      };
-    }
-    return {};
-  },
 });

@@ -54,6 +54,7 @@ const docSections: DocSection[] = [
       { id: "config-routediscovery", title: "routeDiscovery" },
       { id: "config-normalize", title: "normalize" },
       { id: "config-meta", title: "meta" },
+      { id: "config-autometa", title: "autoMeta" },
       { id: "config-template", title: "template" },
       { id: "config-inject", title: "inject" },
       { id: "config-incremental", title: "incremental" },
@@ -642,6 +643,46 @@ routeDiscovery: {
 })`}
                       language="typescript"
                     />
+                  </div>
+                </div>
+
+                {/* autoMeta */}
+                <div id="config-autometa" className="mb-8 scroll-mt-24">
+                  <h3 className="text-xl font-semibold mb-2">autoMeta</h3>
+                  <div className="bg-[var(--background-surface)] rounded-xl p-5 border border-[var(--border-subtle)]">
+                    <p className="text-sm text-[var(--text-secondary)] mb-3">
+                      Automatically inject{" "}
+                      <code className="text-[var(--accent-primary)]">
+                        &lt;meta property="og:image"&gt;
+                      </code>{" "}
+                      tags into your generated static HTML files after the build
+                      is complete.
+                    </p>
+                    <CodeBlock
+                      code={`autoMeta: {
+  baseMetaUrl: "https://example.com/og",
+  htmlOutputDir: "./dist",
+}`}
+                      language="typescript"
+                    />
+                    <p className="text-sm text-[var(--text-secondary)] mt-3">
+                      If enabled, Ogrite will scan{" "}
+                      <code className="text-[var(--accent-primary)]">
+                        htmlOutputDir
+                      </code>{" "}
+                      for HTML files matching your routes and safely inject the
+                      meta tag right before{" "}
+                      <code className="text-[var(--accent-primary)]">
+                        &lt;/head&gt;
+                      </code>
+                      . If an{" "}
+                      <code className="text-[var(--accent-primary)]">
+                        og:image
+                      </code>{" "}
+                      tag already exists, it is overwritten, making it an
+                      excellent final-step utility for statically generated
+                      sites.
+                    </p>
                   </div>
                 </div>
 

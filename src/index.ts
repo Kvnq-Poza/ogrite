@@ -16,6 +16,7 @@ export type {
   InjectOptions,
   TemplateContext,
   TemplateFunction,
+  AutoMetaOptions,
   RouteDiscovery,
   NormalizeOptions,
   ParamStrategy,

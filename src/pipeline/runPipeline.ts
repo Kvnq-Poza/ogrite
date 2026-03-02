@@ -15,6 +15,7 @@ import {
   writeManifest,
   updateManifestEntry,
 } from "../fs/manifest.js";
+import { injectMetaTags } from "../meta/injectMetaTags.js";
 import { createReportCollector } from "../reporting/buildReport.js";
 import { contentHash } from "../utils/hash.js";
 import { createLogger } from "../utils/logger.js";
@@ -184,6 +185,10 @@ export async function runPipeline(ctx: PipelineContext): Promise<BuildReport> {
 
   // Write final manifest
   await writeManifest(config.outputDir, manifest);
+
+  if (config.autoMeta) {
+    await injectMetaTags(config.autoMeta, manifest);
+  }
 
   // Cleanup
   await renderer.close();

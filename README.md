@@ -131,6 +131,7 @@ const path = generator.normalize("/blog/post");
 | `routeDiscovery` | `RouteDiscovery`                 | `manual`                   | Route detection strategy                  |
 | `normalize`      | `NormalizeOptions`               | `slugify, "home"`          | Output path mapping                       |
 | `incremental`    | `boolean`                        | `false`                    | Hash source HTML to skip unchanged routes |
+| `autoMeta`       | `AutoMetaOptions`                | `undefined`                | Auto-inject `og:image` tags to HTML files |
 | `template`       | `TemplateFunction`               | `undefined`                | Skip live URLs and render via raw HTML    |
 | `inject`         | `InjectOptions`                  | `{ css: '', js: '' }`      | CSS/JS injected before capture            |
 | `logLevel`       | `'silent' \| 'info' \| 'debug'`  | `'info'`                   | Verbosity                                 |

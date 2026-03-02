@@ -100,6 +100,11 @@ export type TemplateFunction = (
   ctx: TemplateContext,
 ) => string | Promise<string>;
 
+export interface AutoMetaOptions {
+  baseMetaUrl: string;
+  htmlOutputDir: string;
+}
+
 // ── Config ──────────────────────────────────────────────────────────
 
 export interface OgriteConfig {
@@ -117,6 +122,7 @@ export interface OgriteConfig {
   routeDiscovery?: RouteDiscovery;
   normalize?: NormalizeOptions;
   meta?: MetaResolver;
+  autoMeta?: AutoMetaOptions;
   logLevel?: "silent" | "info" | "debug";
 }
 
@@ -204,5 +210,6 @@ export interface ResolvedConfig {
   routeDiscovery: RouteDiscovery;
   normalize: NormalizeOptions;
   meta?: MetaResolver;
+  autoMeta?: AutoMetaOptions;
   logLevel: "silent" | "info" | "debug";
 }

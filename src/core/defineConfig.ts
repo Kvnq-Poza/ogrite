@@ -8,6 +8,7 @@ const DEFAULTS: Omit<ResolvedConfig, "baseUrl" | "outputDir"> = {
   wait: { type: "networkidle", timeoutMs: 30_000, extraDelayMs: 500 },
   capture: { type: "viewport", selector: null, format: "png", quality: 90 },
   compression: { enabled: true, target: "webp", quality: 80, maxWidth: 1200 },
+  inject: { css: "", js: "" },
   routeDiscovery: { strategy: "manual", routes: [] },
   normalize: {
     baseOutput: "",
@@ -38,6 +39,7 @@ export function defineConfig(config: OgriteConfig): ResolvedConfig {
     wait: { ...DEFAULTS.wait, ...config.wait },
     capture: { ...DEFAULTS.capture, ...config.capture },
     compression: { ...DEFAULTS.compression, ...config.compression },
+    inject: { ...DEFAULTS.inject, ...config.inject },
     routeDiscovery: { ...DEFAULTS.routeDiscovery, ...config.routeDiscovery },
     normalize: {
       ...DEFAULTS.normalize,

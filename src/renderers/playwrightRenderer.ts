@@ -47,6 +47,16 @@ export function createPlaywrightRenderer(): Renderer {
           await page.waitForTimeout(options.wait.extraDelayMs);
         }
 
+        // Inject custom CSS before capture
+        if (options.inject.css) {
+          await page.addStyleTag({ content: options.inject.css });
+        }
+
+        // Inject custom JS before capture
+        if (options.inject.js) {
+          await page.evaluate(options.inject.js);
+        }
+
         // Capture screenshot
         let screenshotBuffer: Buffer;
 

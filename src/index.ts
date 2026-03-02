@@ -13,6 +13,7 @@ export type {
   WaitOptions,
   CaptureOptions,
   CompressionOptions,
+  InjectOptions,
   RouteDiscovery,
   NormalizeOptions,
   ParamStrategy,

@@ -54,6 +54,7 @@ const docSections: DocSection[] = [
       { id: "config-routediscovery", title: "routeDiscovery" },
       { id: "config-normalize", title: "normalize" },
       { id: "config-meta", title: "meta" },
+      { id: "config-inject", title: "inject" },
       { id: "config-defaults", title: "Full defaults" },
     ],
   },
@@ -642,6 +643,37 @@ routeDiscovery: {
                   </div>
                 </div>
 
+                {/* inject */}
+                <div id="config-inject" className="mb-8 scroll-mt-24">
+                  <h3 className="text-xl font-semibold mb-2">inject</h3>
+                  <div className="bg-[var(--background-surface)] rounded-xl p-5 border border-[var(--border-subtle)]">
+                    <p className="text-sm text-[var(--text-secondary)] mb-3">
+                      Inject custom CSS and/or JavaScript into the page before
+                      capturing a screenshot. Useful for removing cookie
+                      banners, overlays, or toggling dark mode.
+                    </p>
+                    <CodeBlock
+                      code={`inject: {
+  css: 'body { background: white !important; }',  // injected via <style> tag
+  js: "document.querySelector('.cookie-banner')?.remove();",  // evaluated in page context
+}`}
+                      language="typescript"
+                    />
+                    <p className="text-xs text-[var(--text-muted)] mt-3">
+                      Both fields default to empty strings (no injection). CSS
+                      is applied via{" "}
+                      <code className="text-[var(--accent-primary)]">
+                        page.addStyleTag()
+                      </code>{" "}
+                      and JS via{" "}
+                      <code className="text-[var(--accent-primary)]">
+                        page.evaluate()
+                      </code>
+                      .
+                    </p>
+                  </div>
+                </div>
+
                 {/* Full defaults */}
                 <div id="config-defaults" className="scroll-mt-24">
                   <h3 className="text-xl font-semibold mb-3">Full defaults</h3>
@@ -669,6 +701,7 @@ routeDiscovery: {
   wait: { type: 'networkidle', timeoutMs: 30000, extraDelayMs: 500 },
   capture: { type: 'viewport', selector: null, format: 'png', quality: 90 },
   compression: { enabled: true, target: 'webp', quality: 80, maxWidth: 1200 },
+  inject: { css: '', js: '' },
   routeDiscovery: { strategy: 'manual', routes: [] },
   normalize: {
     baseOutput: '<outputDir>',

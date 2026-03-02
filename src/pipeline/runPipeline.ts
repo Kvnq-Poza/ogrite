@@ -113,6 +113,7 @@ export async function runPipeline(ctx: PipelineContext): Promise<BuildReport> {
             viewport: config.viewport,
             wait: config.wait,
             capture: config.capture,
+            inject: config.inject,
           });
 
           // ── Stage 4: Optimize ──
@@ -185,6 +186,7 @@ export async function runSingleRoute(
       viewport: config.viewport,
       wait: config.wait,
       capture: config.capture,
+      inject: config.inject,
     });
 
     const optimizedBuffer = await optimizer.optimize(rawBuffer, {

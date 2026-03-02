@@ -41,6 +41,16 @@ export interface CompressionOptions {
   maxWidth?: number;
 }
 
+// ── Injection ───────────────────────────────────────────────────────
+
+/** Custom CSS/JS to inject into the page before capturing a screenshot. */
+export interface InjectOptions {
+  /** CSS string to inject via <style> tag. */
+  css?: string;
+  /** JS string to evaluate in the page context. */
+  js?: string;
+}
+
 // ── Route Discovery ─────────────────────────────────────────────────
 
 export interface RouteDiscovery {
@@ -90,6 +100,7 @@ export interface OgriteConfig {
   wait?: WaitOptions;
   capture?: CaptureOptions;
   compression?: CompressionOptions;
+  inject?: InjectOptions;
   routeDiscovery?: RouteDiscovery;
   normalize?: NormalizeOptions;
   meta?: MetaResolver;
@@ -139,6 +150,7 @@ export interface RenderOptions {
   viewport: Required<Viewport>;
   wait: Required<WaitOptions>;
   capture: Required<CaptureOptions>;
+  inject: Required<InjectOptions>;
 }
 
 export interface Renderer {
@@ -171,6 +183,7 @@ export interface ResolvedConfig {
   wait: Required<WaitOptions>;
   capture: Required<CaptureOptions>;
   compression: Required<CompressionOptions>;
+  inject: Required<InjectOptions>;
   routeDiscovery: RouteDiscovery;
   normalize: NormalizeOptions;
   meta?: MetaResolver;

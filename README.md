@@ -2,6 +2,8 @@
 
 Deterministic visual artifact compiler for Open Graph images.
 
+https://ogrite.vercel.app/
+
 Ogrite converts application routes into static, optimized OG images at build time — the same way bundlers turn code into assets.
 
 ## Installation
@@ -128,4 +130,22 @@ const path = generator.normalize("/blog/post");
 | `compression`    | `CompressionOptions`             | `webp, q80, max 1200px`    | Post-render optimization       |
 | `routeDiscovery` | `RouteDiscovery`                 | `manual`                   | Route detection strategy       |
 | `normalize`      | `NormalizeOptions`               | `slugify, "home"`          | Output path mapping            |
+| `inject`         | `InjectOptions`                  | `{ css: '', js: '' }`      | CSS/JS injected before capture |
 | `logLevel`       | `'silent' \| 'info' \| 'debug'`  | `'info'`                   | Verbosity                      |
+
+## CSS/JS Injection
+
+Inject custom CSS or JavaScript into pages before the screenshot is taken:
+
+```ts
+export default defineConfig({
+  baseUrl: "http://localhost:3000",
+  outputDir: "public/og",
+  inject: {
+    css: "body { background: white !important; }",
+    js: "document.querySelector('.cookie-banner')?.remove();",
+  },
+});
+```
+
+CSS is injected via `page.addStyleTag()` and JS via `page.evaluate()` — both run after navigation and before capture.

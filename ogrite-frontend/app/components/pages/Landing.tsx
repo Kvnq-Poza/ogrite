@@ -9,6 +9,7 @@ import {
   Hash,
   Layers,
   Terminal,
+  Paintbrush,
 } from "lucide-react";
 import { CodeBlock } from "../CodeBlock";
 import { motion } from "framer-motion";
@@ -71,7 +72,13 @@ const features = [
     icon: Terminal,
     title: "CI-ready CLI",
     description:
-      "@ogrite/ogrite generate, watch, check, and clean. Non-zero exit on failure. JSON reports for downstream tooling.",
+      "generate, watch, check, and clean. Non-zero exit on failure. JSON reports for downstream tooling.",
+  },
+  {
+    icon: Paintbrush,
+    title: "CSS/JS injection",
+    description:
+      "Inject custom CSS and JavaScript into pages before capture. Remove cookie banners, overlays, or toggle dark mode.",
   },
 ];
 

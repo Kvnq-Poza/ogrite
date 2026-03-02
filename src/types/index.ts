@@ -89,6 +89,17 @@ export interface RouteMeta {
 
 export type MetaResolver = (route: RoutePath) => Promise<RouteMeta | undefined>;
 
+// ── Templating ──────────────────────────────────────────────────────
+
+export interface TemplateContext {
+  route: RoutePath;
+  meta?: RouteMeta;
+}
+
+export type TemplateFunction = (
+  ctx: TemplateContext,
+) => string | Promise<string>;
+
 // ── Config ──────────────────────────────────────────────────────────
 
 export interface OgriteConfig {
@@ -102,6 +113,7 @@ export interface OgriteConfig {
   capture?: CaptureOptions;
   compression?: CompressionOptions;
   inject?: InjectOptions;
+  template?: TemplateFunction;
   routeDiscovery?: RouteDiscovery;
   normalize?: NormalizeOptions;
   meta?: MetaResolver;
@@ -153,6 +165,7 @@ export interface RenderOptions {
   wait: Required<WaitOptions>;
   capture: Required<CaptureOptions>;
   inject: Required<InjectOptions>;
+  templateCtx?: TemplateContext;
 }
 
 export interface Renderer {
@@ -187,6 +200,7 @@ export interface ResolvedConfig {
   capture: Required<CaptureOptions>;
   compression: Required<CompressionOptions>;
   inject: Required<InjectOptions>;
+  template?: TemplateFunction;
   routeDiscovery: RouteDiscovery;
   normalize: NormalizeOptions;
   meta?: MetaResolver;

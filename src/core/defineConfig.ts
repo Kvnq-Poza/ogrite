@@ -43,6 +43,7 @@ export function defineConfig(config: OgriteConfig): ResolvedConfig {
     compression: { ...DEFAULTS.compression, ...config.compression },
     inject: { ...DEFAULTS.inject, ...config.inject },
     routeDiscovery: { ...DEFAULTS.routeDiscovery, ...config.routeDiscovery },
+    template: config.template,
     normalize: {
       ...DEFAULTS.normalize,
       baseOutput: config.normalize?.baseOutput ?? config.outputDir,

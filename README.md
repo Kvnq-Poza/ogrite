@@ -131,8 +131,32 @@ const path = generator.normalize("/blog/post");
 | `routeDiscovery` | `RouteDiscovery`                 | `manual`                   | Route detection strategy                  |
 | `normalize`      | `NormalizeOptions`               | `slugify, "home"`          | Output path mapping                       |
 | `incremental`    | `boolean`                        | `false`                    | Hash source HTML to skip unchanged routes |
+| `template`       | `TemplateFunction`               | `undefined`                | Skip live URLs and render via raw HTML    |
 | `inject`         | `InjectOptions`                  | `{ css: '', js: '' }`      | CSS/JS injected before capture            |
 | `logLevel`       | `'silent' \| 'info' \| 'debug'`  | `'info'`                   | Verbosity                                 |
+
+## HTML Templates
+
+If you don't want Ogrite to take screenshots of your actual application routes, you can provide a `template` function. Ogrite will call this function with the current `route` and any resolved `meta`, and then instantly render the returned HTML string into the image.
+
+```ts
+import { defineConfig } from "ogrite";
+
+export default defineConfig({
+  baseUrl: "https://example.com",
+  outputDir: "public/og",
+  template: async ({ route, meta }) => {
+    return `
+      <div style="width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center;">
+        <h1>${meta?.title ?? Default Title}</h1>
+        <p>Path: ${route}</p>
+      </div>
+    `;
+  },
+});
+```
+
+Using templates is highly recommended when you want complete, deterministic control over the layout of your cards without affecting your application's actual UI.
 
 ## Incremental Builds
 

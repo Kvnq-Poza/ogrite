@@ -7,6 +7,7 @@ import type {
 import { defineConfig } from "./defineConfig.js";
 import { normalizeRoute } from "../normalize/normalizeRoute.js";
 import { createPlaywrightRenderer } from "../renderers/playwrightRenderer.js";
+import { createTemplateRenderer } from "../renderers/templateRenderer.js";
 import { createSharpOptimizer } from "../optimizers/sharpOptimizer.js";
 import { runPipeline, runSingleRoute } from "../pipeline/runPipeline.js";
 
@@ -22,13 +23,17 @@ export function createOgGenerator(config: OgriteConfig): OgGenerator {
 
   return {
     async build() {
-      const renderer = createPlaywrightRenderer();
+      const renderer = resolved.template
+        ? createTemplateRenderer(resolved.template)
+        : createPlaywrightRenderer();
       const optimizer = createSharpOptimizer();
       return runPipeline({ config: resolved, renderer, optimizer });
     },
 
     async buildRoute(route: RoutePath) {
-      const renderer = createPlaywrightRenderer();
+      const renderer = resolved.template
+        ? createTemplateRenderer(resolved.template)
+        : createPlaywrightRenderer();
       const optimizer = createSharpOptimizer();
       return runSingleRoute({ config: resolved, renderer, optimizer }, route);
     },

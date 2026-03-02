@@ -14,6 +14,8 @@ export type {
   CaptureOptions,
   CompressionOptions,
   InjectOptions,
+  TemplateContext,
+  TemplateFunction,
   RouteDiscovery,
   NormalizeOptions,
   ParamStrategy,

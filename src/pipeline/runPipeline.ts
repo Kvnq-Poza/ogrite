@@ -138,6 +138,10 @@ export async function runPipeline(ctx: PipelineContext): Promise<BuildReport> {
             wait: config.wait,
             capture: config.capture,
             inject: config.inject,
+            templateCtx: {
+              route,
+              meta: config.meta ? await config.meta(route) : undefined,
+            },
           });
 
           // ── Stage 4: Optimize ──
@@ -212,6 +216,10 @@ export async function runSingleRoute(
       wait: config.wait,
       capture: config.capture,
       inject: config.inject,
+      templateCtx: {
+        route,
+        meta: config.meta ? await config.meta(route) : undefined,
+      },
     });
 
     const optimizedBuffer = await optimizer.optimize(rawBuffer, {

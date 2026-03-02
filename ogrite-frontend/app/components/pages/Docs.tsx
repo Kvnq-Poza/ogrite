@@ -54,6 +54,7 @@ const docSections: DocSection[] = [
       { id: "config-routediscovery", title: "routeDiscovery" },
       { id: "config-normalize", title: "normalize" },
       { id: "config-meta", title: "meta" },
+      { id: "config-template", title: "template" },
       { id: "config-inject", title: "inject" },
       { id: "config-incremental", title: "incremental" },
       { id: "config-defaults", title: "Full defaults" },
@@ -644,6 +645,37 @@ routeDiscovery: {
                   </div>
                 </div>
 
+                {/* template */}
+                <div id="config-template" className="mb-8 scroll-mt-24">
+                  <h3 className="text-xl font-semibold mb-2">template</h3>
+                  <div className="bg-[var(--background-surface)] rounded-xl p-5 border border-[var(--border-subtle)]">
+                    <p className="text-sm text-[var(--text-secondary)] mb-3">
+                      Instead of having Playwright navigate to live URLs, you
+                      can provide a template function. Ogrite will take the HTML
+                      string returned by this function, inject it into the
+                      browser, and screenshot it.
+                    </p>
+                    <CodeBlock
+                      code={`template: async ({ route, meta }) => {
+  return \`
+    <div style="width: 1200px; height: 630px; display: flex; align-items: center; justify-content: center;">
+      <h1>\${meta?.title ?? 'Default Title'}</h1>
+      <p>Route: \${route}</p>
+    </div>
+  \`;
+}`}
+                      language="typescript"
+                    />
+                    <p className="text-sm text-[var(--text-secondary)] mt-3">
+                      This is excellent for generating deterministic static
+                      cards without needing a web server running your app
+                      routes. It is recommended to inline all CSS and
+                      base64-encode any images for the best performance and
+                      reliability.
+                    </p>
+                  </div>
+                </div>
+
                 {/* inject */}
                 <div id="config-inject" className="mb-8 scroll-mt-24">
                   <h3 className="text-xl font-semibold mb-2">inject</h3>
@@ -739,6 +771,7 @@ routeDiscovery: {
   concurrency: 4,
   logLevel: 'info',
   incremental: false,
+  template: undefined,
   viewport: { width: 1200, height: 630, deviceScaleFactor: 2 },
   wait: { type: 'networkidle', timeoutMs: 30000, extraDelayMs: 500 },
   capture: { type: 'viewport', selector: null, format: 'png', quality: 90 },

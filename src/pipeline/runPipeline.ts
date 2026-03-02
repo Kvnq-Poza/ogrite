@@ -98,6 +98,7 @@ export async function runPipeline(ctx: PipelineContext): Promise<BuildReport> {
   // Process routes with bounded concurrency
   const entries = Array.from(routeMap.entries());
   const concurrency = config.concurrency;
+  const sourceHashes = new Map<string, string>();
 
   for (let i = 0; i < entries.length; i += concurrency) {
     const batch = entries.slice(i, i + concurrency);
@@ -105,8 +106,31 @@ export async function runPipeline(ctx: PipelineContext): Promise<BuildReport> {
     await Promise.all(
       batch.map(async ([route, outputPath]) => {
         try {
-          // ── Stage 3: Render ──
           const url = `${config.baseUrl}${route}`;
+
+          // ── Incremental check ──
+          if (config.incremental) {
+            try {
+              const res = await fetch(url);
+              const html = await res.text();
+              const srcHash = contentHash(Buffer.from(html, "utf-8"));
+              const existing = manifest[route];
+
+              if (existing?.sourceHash === srcHash) {
+                logger.info(`Skipping (unchanged): ${route}`);
+                report.addSkip(route);
+                return;
+              }
+
+              sourceHashes.set(route, srcHash);
+            } catch {
+              logger.debug(
+                `Could not fetch ${url} for incremental check, rendering anyway.`,
+              );
+            }
+          }
+
+          // ── Stage 3: Render ──
           logger.debug(`Rendering ${url} ...`);
 
           const rawBuffer = await renderer.render(url, {
@@ -133,6 +157,7 @@ export async function runPipeline(ctx: PipelineContext): Promise<BuildReport> {
             route,
             outputPath,
             hash,
+            sourceHash: sourceHashes.get(route),
             generatedAt: new Date().toISOString(),
           };
           manifest = updateManifestEntry(manifest, entry);

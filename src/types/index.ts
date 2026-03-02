@@ -96,6 +96,7 @@ export interface OgriteConfig {
   outputDir: string;
   mode?: "manual" | "build" | "watch";
   concurrency?: number;
+  incremental?: boolean;
   viewport?: Viewport;
   wait?: WaitOptions;
   capture?: CaptureOptions;
@@ -139,6 +140,7 @@ export interface ManifestEntry {
   route: string;
   outputPath: string;
   hash: string;
+  sourceHash?: string;
   generatedAt: string;
 }
 
@@ -179,6 +181,7 @@ export interface ResolvedConfig {
   outputDir: string;
   mode: "manual" | "build" | "watch";
   concurrency: number;
+  incremental: boolean;
   viewport: Required<Viewport>;
   wait: Required<WaitOptions>;
   capture: Required<CaptureOptions>;

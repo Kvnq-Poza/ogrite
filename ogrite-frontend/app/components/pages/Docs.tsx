@@ -55,6 +55,7 @@ const docSections: DocSection[] = [
       { id: "config-normalize", title: "normalize" },
       { id: "config-meta", title: "meta" },
       { id: "config-inject", title: "inject" },
+      { id: "config-incremental", title: "incremental" },
       { id: "config-defaults", title: "Full defaults" },
     ],
   },
@@ -674,6 +675,46 @@ routeDiscovery: {
                   </div>
                 </div>
 
+                {/* incremental */}
+                <div id="config-incremental" className="mb-8 scroll-mt-24">
+                  <h3 className="text-xl font-semibold mb-2">incremental</h3>
+                  <div className="bg-[var(--background-surface)] rounded-xl p-5 border border-[var(--border-subtle)]">
+                    <p className="text-sm text-[var(--text-secondary)] mb-3">
+                      Enable incremental builds to significantly speed up CI and
+                      local regeneration.
+                    </p>
+                    <CodeBlock
+                      code={`incremental: true`}
+                      language="typescript"
+                    />
+                    <p className="text-sm text-[var(--text-secondary)] mt-3 mb-3">
+                      When enabled, Ogrite fetches the target route's HTML
+                      before taking a screenshot. It computes a hash of the HTML
+                      source and compares it to the previous run (stored in{" "}
+                      <code className="text-[var(--accent-primary)]">
+                        .ogrite-manifest.json
+                      </code>
+                      ). If the HTML hasn't changed, Ogrite skips the Playwright
+                      rendering and Sharp optimization steps.
+                    </p>
+                    <p className="text-xs text-[var(--text-muted)] mt-3">
+                      Defaults to{" "}
+                      <code className="text-[var(--accent-primary)]">
+                        false
+                      </code>
+                      . Can be overridden via CLI flags:{" "}
+                      <code className="text-[var(--accent-primary)]">
+                        --incremental
+                      </code>{" "}
+                      or{" "}
+                      <code className="text-[var(--accent-primary)]">
+                        --force
+                      </code>
+                      .
+                    </p>
+                  </div>
+                </div>
+
                 {/* Full defaults */}
                 <div id="config-defaults" className="scroll-mt-24">
                   <h3 className="text-xl font-semibold mb-3">Full defaults</h3>
@@ -697,6 +738,7 @@ routeDiscovery: {
   mode: 'manual',
   concurrency: 4,
   logLevel: 'info',
+  incremental: false,
   viewport: { width: 1200, height: 630, deviceScaleFactor: 2 },
   wait: { type: 'networkidle', timeoutMs: 30000, extraDelayMs: 500 },
   capture: { type: 'viewport', selector: null, format: 'png', quality: 90 },

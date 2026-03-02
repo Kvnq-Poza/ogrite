@@ -21,8 +21,17 @@ program
     "Number of parallel rendering workers",
     parseInt,
   )
+  .option(
+    "--incremental",
+    "Skip routes whose source HTML has not changed since the last build",
+  )
+  .option("--force", "Force full rebuild, ignoring incremental cache")
   .action(async (options) => {
-    await generateCommand({ concurrency: options.concurrency });
+    await generateCommand({
+      concurrency: options.concurrency,
+      incremental: options.incremental,
+      force: options.force,
+    });
   });
 
 program

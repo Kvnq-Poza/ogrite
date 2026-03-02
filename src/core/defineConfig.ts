@@ -3,6 +3,7 @@ import type { OgriteConfig, ResolvedConfig } from "../types/index.js";
 const DEFAULTS: Omit<ResolvedConfig, "baseUrl" | "outputDir"> = {
   mode: "manual",
   concurrency: 4,
+  incremental: false,
   logLevel: "info",
   viewport: { width: 1200, height: 630, deviceScaleFactor: 2 },
   wait: { type: "networkidle", timeoutMs: 30_000, extraDelayMs: 500 },
@@ -34,6 +35,7 @@ export function defineConfig(config: OgriteConfig): ResolvedConfig {
     outputDir: config.outputDir,
     mode: config.mode ?? DEFAULTS.mode,
     concurrency: config.concurrency ?? DEFAULTS.concurrency,
+    incremental: config.incremental ?? DEFAULTS.incremental,
     logLevel: config.logLevel ?? DEFAULTS.logLevel,
     viewport: { ...DEFAULTS.viewport, ...config.viewport },
     wait: { ...DEFAULTS.wait, ...config.wait },

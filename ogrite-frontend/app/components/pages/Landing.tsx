@@ -10,6 +10,7 @@ import {
   Layers,
   Terminal,
   Paintbrush,
+  FastForward,
 } from "lucide-react";
 import { CodeBlock } from "../CodeBlock";
 import { motion } from "framer-motion";
@@ -79,6 +80,12 @@ const features = [
     title: "CSS/JS injection",
     description:
       "Inject custom CSS and JavaScript into pages before capture. Remove cookie banners, overlays, or toggle dark mode.",
+  },
+  {
+    icon: FastForward,
+    title: "Incremental builds",
+    description:
+      "Skip unchanged routes via source HTML hashing. Only re-render what actually changed for faster CI builds.",
   },
 ];
 

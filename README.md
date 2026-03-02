@@ -118,20 +118,35 @@ const path = generator.normalize("/blog/post");
 
 ## Configuration
 
-| Option           | Type                             | Default                    | Description                    |
-| ---------------- | -------------------------------- | -------------------------- | ------------------------------ |
-| `baseUrl`        | `string`                         | _required_                 | Root URL for rendering         |
-| `outputDir`      | `string`                         | _required_                 | Output directory for artifacts |
-| `mode`           | `'manual' \| 'build' \| 'watch'` | `'manual'`                 | Execution mode                 |
-| `concurrency`    | `number`                         | `4`                        | Parallel rendering workers     |
-| `viewport`       | `Viewport`                       | `1200×630 @2x`             | Browser viewport               |
-| `wait`           | `WaitOptions`                    | `networkidle, 30s, +500ms` | Navigation wait conditions     |
-| `capture`        | `CaptureOptions`                 | `viewport, png, q90`       | Screenshot capture settings    |
-| `compression`    | `CompressionOptions`             | `webp, q80, max 1200px`    | Post-render optimization       |
-| `routeDiscovery` | `RouteDiscovery`                 | `manual`                   | Route detection strategy       |
-| `normalize`      | `NormalizeOptions`               | `slugify, "home"`          | Output path mapping            |
-| `inject`         | `InjectOptions`                  | `{ css: '', js: '' }`      | CSS/JS injected before capture |
-| `logLevel`       | `'silent' \| 'info' \| 'debug'`  | `'info'`                   | Verbosity                      |
+| Option           | Type                             | Default                    | Description                               |
+| ---------------- | -------------------------------- | -------------------------- | ----------------------------------------- |
+| `baseUrl`        | `string`                         | _required_                 | Root URL for rendering                    |
+| `outputDir`      | `string`                         | _required_                 | Output directory for artifacts            |
+| `mode`           | `'manual' \| 'build' \| 'watch'` | `'manual'`                 | Execution mode                            |
+| `concurrency`    | `number`                         | `4`                        | Parallel rendering workers                |
+| `viewport`       | `Viewport`                       | `1200×630 @2x`             | Browser viewport                          |
+| `wait`           | `WaitOptions`                    | `networkidle, 30s, +500ms` | Navigation wait conditions                |
+| `capture`        | `CaptureOptions`                 | `viewport, png, q90`       | Screenshot capture settings               |
+| `compression`    | `CompressionOptions`             | `webp, q80, max 1200px`    | Post-render optimization                  |
+| `routeDiscovery` | `RouteDiscovery`                 | `manual`                   | Route detection strategy                  |
+| `normalize`      | `NormalizeOptions`               | `slugify, "home"`          | Output path mapping                       |
+| `incremental`    | `boolean`                        | `false`                    | Hash source HTML to skip unchanged routes |
+| `inject`         | `InjectOptions`                  | `{ css: '', js: '' }`      | CSS/JS injected before capture            |
+| `logLevel`       | `'silent' \| 'info' \| 'debug'`  | `'info'`                   | Verbosity                                 |
+
+## Incremental Builds
+
+Ogrite supports incremental builds using a `.ogrite-manifest.json` file. When `incremental: true` is configured (or `--incremental` is passed to the CLI), Ogrite evaluates the source HTML of each route. If the HTML matches the hash from the previous run, it safely skips rendering and optimization, radically speeding up large site rebuilds.
+
+```ts
+export default defineConfig({
+  baseUrl: "http://localhost:3000",
+  outputDir: "public/og",
+  incremental: true,
+});
+```
+
+You can force a full rebuild with the `--force` flag.
 
 ## CSS/JS Injection
 

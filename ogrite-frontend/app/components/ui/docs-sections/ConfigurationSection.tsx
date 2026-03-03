@@ -161,7 +161,9 @@ export function ConfigurationSection() {
       <DocCard id="config-loglevel" title="logLevel">
         <p className="text-sm text-[var(--text-secondary)]">
           Controls CLI output verbosity. Accepted values:{" "}
-          <CodeHelper>&quot;silenC&quot;</CodeHelper> |{" "}
+          <CodeHelper>&quot;silent&quot;</CodeHelper> |{" "}
+          <CodeHelper>&quot;error&quot;</CodeHelper> |{" "}
+          <CodeHelper>&quot;warn&quot;</CodeHelper> |{" "}
           <CodeHelper>&quot;info&quot;</CodeHelper> |{" "}
           <CodeHelper>&quot;debug&quot;</CodeHelper>.{" "}
           <strong className="text-[var(--text-primary)]">

@@ -3,18 +3,21 @@
     "route": "/getting-started",
     "outputPath": "public/og/getting-started.webp",
     "hash": "4946c232",
-    "generatedAt": "2026-02-23T10:01:42.913Z"
+    "sourceHash": "5cd73874",
+    "generatedAt": "2026-03-03T17:08:32.630Z"
   },
   "/docs": {
     "route": "/docs",
     "outputPath": "public/og/docs.webp",
-    "hash": "c1694b4e",
-    "generatedAt": "2026-02-23T10:01:43.086Z"
+    "hash": "e17fd307",
+    "sourceHash": "3236bdf0",
+    "generatedAt": "2026-03-03T17:08:32.644Z"
   },
   "/": {
     "route": "/",
     "outputPath": "public/og/home.webp",
-    "hash": "b13643dc",
-    "generatedAt": "2026-02-23T10:01:43.839Z"
+    "hash": "9511a5ad",
+    "sourceHash": "a20d0f8a",
+    "generatedAt": "2026-03-03T17:08:33.918Z"
   }
 }

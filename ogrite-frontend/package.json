@@ -21,7 +21,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@ogrite/ogrite": "^0.1.2",
+    "@ogrite/ogrite": "^0.1.5",
     "@tailwindcss/postcss": "^4.2.0",
     "@types/node": "^20",
     "@types/react": "^18",

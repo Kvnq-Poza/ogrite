@@ -119,7 +119,8 @@ export async function runPipeline(ctx: PipelineContext): Promise<BuildReport> {
               srcHash = contentHash(Buffer.from(html, "utf-8"));
             } else {
               const res = await fetch(url);
-              const html = await res.text();
+              const rawHtml = await res.text();
+              const html = normalizeHtmlForHashing(rawHtml);
               srcHash = contentHash(Buffer.from(html, "utf-8"));
             }
             if (srcHash) sourceHashes.set(route, srcHash);
@@ -207,6 +208,28 @@ export async function runPipeline(ctx: PipelineContext): Promise<BuildReport> {
 
   // ── Stage 7: Reporting ──────────────────────────────────────────
   return report.finalize();
+}
+
+/**
+ * Normalizes HTML by removing dynamic scripts and attributes that change
+ * during development (e.g. Next.js hot-reload scripts or random IDs).
+ */
+function normalizeHtmlForHashing(html: string): string {
+  return (
+    html
+      // Remove Next.js scripts with timestamps or random hashes
+      .replace(/<script[^>]*src="[^"]*(\?|ts=)[^"]*"[^>]*><\/script>/gi, "")
+      // Remove any script tags content entirely (often contains dynamic data)
+      .replace(/<script\b[^>]*>([\s\S]*?)<\/script>/gi, "")
+      // Remove common dynamic attributes
+      .replace(
+        /\sdata-(n-head|next-hid|n-css|next-head-count)(="[^"]*")?/gi,
+        "",
+      )
+      // Collapse whitespace
+      .replace(/\s+/g, " ")
+      .trim()
+  );
 }
 
 /**

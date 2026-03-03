@@ -37,6 +37,9 @@ export async function injectMetaTags(
     }
 
     if (!targetHtmlPath) {
+      console.warn(
+        `[ogrite:warn] autoMeta: Could not find HTML file for route "${route}". Scanned: ${htmlFiles.join(", ")}`,
+      );
       continue;
     }
 
@@ -59,6 +62,9 @@ export async function injectMetaTags(
       );
       if (replaced !== html) {
         await writeFile(targetHtmlPath, replaced, "utf-8");
+        console.log(
+          `[ogrite] autoMeta: Replaced existing tag in ${targetHtmlPath}`,
+        );
       }
     } else {
       // Inject right before </head>
@@ -69,6 +75,11 @@ export async function injectMetaTags(
           `  ${ogTag}\n` +
           html.slice(headCloseIdx);
         await writeFile(targetHtmlPath, newHtml, "utf-8");
+        console.log(`[ogrite] autoMeta: Injected tag into ${targetHtmlPath}`);
+      } else {
+        console.warn(
+          `[ogrite:warn] autoMeta: No </head> tag found in ${targetHtmlPath}`,
+        );
       }
     }
   }

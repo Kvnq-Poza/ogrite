@@ -85,7 +85,11 @@ export function createFilesystemSource(source?: string): RouteSource {
       }
 
       // Deduplicate routes (e.g. if both pages/index.tsx and app/page.tsx exist, though usually discouraged)
-      return Array.from(new Set(routes));
+      const finalRoutes = Array.from(new Set(routes));
+      console.log(
+        `[ogrite:debug] Discovery complete. Found: ${finalRoutes.join(", ")}`,
+      );
+      return finalRoutes;
     },
   };
 }
@@ -98,9 +102,11 @@ async function walk(
 ): Promise<void> {
   let entries;
   try {
-    entries = await fs.readdir(path.join(base, prefix), {
+    const dirPath = path.join(base, prefix);
+    entries = await fs.readdir(dirPath, {
       withFileTypes: true,
     });
+    // console.log(`[ogrite:debug] Scanning: ${dirPath} | Entries: ${entries.map(e => e.name).join(", ")}`);
   } catch {
     // Gracefully handle if a directory being walked somehow disappears or is unreadable
     return;
@@ -126,7 +132,7 @@ async function walk(
         );
         continue;
       }
-      routeFromDirectory(base, relativePath, routes, isAppRouter);
+      await routeFromDirectory(base, relativePath, routes, isAppRouter);
       await walk(base, relativePath, routes, isAppRouter);
     } else if (entry.isFile()) {
       const ext = path.extname(name);

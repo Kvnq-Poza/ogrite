@@ -50,6 +50,7 @@ export function defineConfig(config: OgriteConfig): ResolvedConfig {
       ...config.normalize,
     },
     meta: config.meta,
+    autoMeta: config.autoMeta,
   };
 
   // Ensure normalize.baseOutput falls back to outputDir

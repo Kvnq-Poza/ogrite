@@ -118,23 +118,23 @@ const path = generator.normalize("/blog/post");
 
 ## Configuration
 
-| Option           | Type                             | Default                    | Description                               |
-| ---------------- | -------------------------------- | -------------------------- | ----------------------------------------- |
-| `baseUrl`        | `string`                         | _required_                 | Root URL for rendering                    |
-| `outputDir`      | `string`                         | _required_                 | Output directory for artifacts            |
-| `mode`           | `'manual' \| 'build' \| 'watch'` | `'manual'`                 | Execution mode                            |
-| `concurrency`    | `number`                         | `4`                        | Parallel rendering workers                |
-| `viewport`       | `Viewport`                       | `1200×630 @2x`             | Browser viewport                          |
-| `wait`           | `WaitOptions`                    | `networkidle, 30s, +500ms` | Navigation wait conditions                |
-| `capture`        | `CaptureOptions`                 | `viewport, png, q90`       | Screenshot capture settings               |
-| `compression`    | `CompressionOptions`             | `webp, q80, max 1200px`    | Post-render optimization                  |
-| `routeDiscovery` | `RouteDiscovery`                 | `manual`                   | Route detection strategy                  |
-| `normalize`      | `NormalizeOptions`               | `slugify, "home"`          | Output path mapping                       |
-| `incremental`    | `boolean`                        | `false`                    | Hash source HTML to skip unchanged routes |
-| `autoMeta`       | `AutoMetaOptions`                | `undefined`                | Auto-inject `og:image` tags to HTML files |
-| `template`       | `TemplateFunction`               | `undefined`                | Skip live URLs and render via raw HTML    |
-| `inject`         | `InjectOptions`                  | `{ css: '', js: '' }`      | CSS/JS injected before capture            |
-| `logLevel`       | `'silent' \| 'info' \| 'debug'`  | `'info'`                   | Verbosity                                 |
+| Option           | Type                                                 | Default                    | Description                               |
+| ---------------- | ---------------------------------------------------- | -------------------------- | ----------------------------------------- |
+| `baseUrl`        | `string`                                             | _required_                 | Root URL for rendering                    |
+| `outputDir`      | `string`                                             | _required_                 | Output directory for artifacts            |
+| `mode`           | `'manual' \| 'build' \| 'watch'`                     | `'manual'`                 | Execution mode                            |
+| `concurrency`    | `number`                                             | `4`                        | Parallel rendering workers                |
+| `viewport`       | `Viewport`                                           | `1200×630 @2x`             | Browser viewport                          |
+| `wait`           | `WaitOptions`                                        | `networkidle, 30s, +500ms` | Navigation wait conditions                |
+| `capture`        | `CaptureOptions`                                     | `viewport, png, q90`       | Screenshot capture settings               |
+| `compression`    | `CompressionOptions`                                 | `webp, q80, max 1200px`    | Post-render optimization                  |
+| `routeDiscovery` | `RouteDiscovery`                                     | `manual`                   | Route detection strategy                  |
+| `normalize`      | `NormalizeOptions`                                   | `slugify, "home"`          | Output path mapping                       |
+| `incremental`    | `boolean`                                            | `false`                    | Hash source HTML to skip unchanged routes |
+| `autoMeta`       | `AutoMetaOptions`                                    | `undefined`                | Auto-inject `og:image` tags to HTML files |
+| `template`       | `TemplateFunction`                                   | `undefined`                | Skip live URLs and render via raw HTML    |
+| `inject`         | `InjectOptions`                                      | `{ css: '', js: '' }`      | CSS/JS injected before capture            |
+| `logLevel`       | `'silent' \| 'error' \| 'warn' \| 'info' \| 'debug'` | `'info'`                   | Verbosity                                 |
 
 ## HTML Templates
 

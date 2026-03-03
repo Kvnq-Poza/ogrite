@@ -11,7 +11,7 @@ import {
   FileText,
 } from "lucide-react";
 import { FadeIn } from "../animations/FadeIn";
-import { CodeBlock } from "../CodeBlock";
+import { CodeBlock } from "../ui/CodeBlock";
 
 /* ------------------------------------------------------------------ */
 /*  Steps                                                             */

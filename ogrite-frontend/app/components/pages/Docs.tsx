@@ -4,8 +4,8 @@ import React, { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, Menu, X } from "lucide-react";
 import { FadeIn } from "../animations/FadeIn";
-import { CodeBlock } from "../CodeBlock";
-import { DocCard } from "../DocCard";
+import { CodeBlock } from "../ui/CodeBlock";
+import { DocCard } from "../ui/DocCard";
 
 /* scroll helper — accounts for fixed header height (64px) + 16px buffer */
 const HEADER_OFFSET = 80;

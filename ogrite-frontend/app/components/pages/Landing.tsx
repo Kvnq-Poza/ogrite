@@ -12,9 +12,9 @@ import {
   Paintbrush,
   FastForward,
 } from "lucide-react";
-import { CodeBlock } from "../CodeBlock";
+import { CodeBlock } from "../ui/CodeBlock";
 import { motion } from "framer-motion";
-import { FeatureCard } from "../FeatureCard";
+import { FeatureCard } from "../ui/FeatureCard";
 import { PipelineDiagram } from "../PipelineDiagram";
 import { AnimatedButton } from "../ui/AnimatedButton";
 import { FadeIn } from "../animations/FadeIn";

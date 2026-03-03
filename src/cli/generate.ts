@@ -10,6 +10,7 @@ export async function generateCommand(
     concurrency?: number;
     incremental?: boolean;
     force?: boolean;
+    logLevel?: "debug" | "info" | "warn" | "error";
   } = {},
 ): Promise<void> {
   const config = await loadConfig();
@@ -22,6 +23,9 @@ export async function generateCommand(
     config.incremental = false;
   } else if (options.incremental) {
     config.incremental = true;
+  }
+  if (options.logLevel) {
+    config.logLevel = options.logLevel;
   }
 
   const generator = createOgGenerator(config);

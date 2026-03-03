@@ -121,8 +121,8 @@ export async function previewCommand(
         (item) => `
       <div class="card">
         <div class="img-container">
-          <!-- Serving local file via /image/... path -->
-          <img src="/image/${item.outputPath}" alt="${item.route}" loading="lazy" />
+          <!-- Serving local file via /image/... path. Use just the filename relative to outputDir -->
+          <img src="/image/${normalize(item.outputPath).split(/[/\\]/).pop()}" alt="${item.route}" loading="lazy" />
         </div>
         <div class="info">
           <div class="route">${item.route}</div>
@@ -146,17 +146,10 @@ export async function previewCommand(
     // Serve static images from outputDir
     if (url.pathname.startsWith("/image/")) {
       try {
-        // Safe path resolution to prevent directory traversal
         const fileReq = url.pathname.replace("/image/", "");
-        const safePath = normalize(fileReq).replace(/^(\.\.(\/|\\|$))+/, "");
-        const filePath = join(absoluteOutputDir, safePath);
-
-        // Ensure the resolved path is actually inside the output directory
-        if (!filePath.startsWith(absoluteOutputDir)) {
-          res.writeHead(403);
-          res.end("Forbidden");
-          return;
-        }
+        // Only allow files directly inside outputDir (no subdirs for now or handle them safely)
+        const safeName = normalize(fileReq).split(/[/\\]/).pop() || "";
+        const filePath = join(absoluteOutputDir, safeName);
 
         const fileStat = await stat(filePath);
         if (fileStat.isFile()) {

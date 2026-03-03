@@ -10,7 +10,7 @@ const DEFAULTS: Omit<ResolvedConfig, "baseUrl" | "outputDir"> = {
   capture: { type: "viewport", selector: null, format: "png", quality: 90 },
   compression: { enabled: true, target: "webp", quality: 80, maxWidth: 1200 },
   inject: { css: "", js: "" },
-  routeDiscovery: { strategy: "manual", routes: [] },
+  routeDiscovery: { strategy: "filesystem" },
   normalize: {
     baseOutput: "",
     paramStrategy: { type: "slugify" },

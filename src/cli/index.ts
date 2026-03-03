@@ -27,11 +27,17 @@ program
     "Skip routes whose source HTML has not changed since the last build",
   )
   .option("--force", "Force full rebuild, ignoring incremental cache")
+  .option(
+    "-l, --log-level <level>",
+    "Log level (debug, info, warn, error)",
+    "info",
+  )
   .action(async (options) => {
     await generateCommand({
       concurrency: options.concurrency,
       incremental: options.incremental,
       force: options.force,
+      logLevel: options.logLevel,
     });
   });
 
@@ -61,8 +67,13 @@ program
 program
   .command("preview")
   .description("Serve a local HTML gallery of all generated OG images.")
-  .option("-p, --port <number>", "Port to serve the gallery on", parseInt, 4000)
-  .action(async (options) => {
+  .option(
+    "-p, --port <number>",
+    "Port to serve the gallery on",
+    (val: string) => parseInt(val, 10),
+    4000,
+  )
+  .action(async (options: { port: number }) => {
     await previewCommand({ port: options.port });
   });
 

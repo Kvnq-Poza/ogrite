@@ -1,9 +1,11 @@
-export type LogLevel = "silent" | "info" | "debug";
+export type LogLevel = "silent" | "error" | "warn" | "info" | "debug";
 
 const LEVEL_ORDER: Record<LogLevel, number> = {
   silent: 0,
-  info: 1,
-  debug: 2,
+  error: 1,
+  warn: 2,
+  info: 3,
+  debug: 4,
 };
 
 export interface Logger {

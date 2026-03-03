@@ -103,31 +103,39 @@ export async function runPipeline(ctx: PipelineContext): Promise<BuildReport> {
 
   for (let i = 0; i < entries.length; i += concurrency) {
     const batch = entries.slice(i, i + concurrency);
+    const batchManifestEntries: ManifestEntry[] = [];
 
     await Promise.all(
       batch.map(async ([route, outputPath]) => {
         try {
           const url = `${config.baseUrl}${route}`;
 
-          // ── Incremental check ──
-          if (config.incremental) {
-            try {
+          // ── Calculate Source Hash (Always do this for Stage 6, even if not skipping) ──
+          let srcHash: string | undefined;
+          try {
+            if (config.template) {
+              const meta = config.meta ? await config.meta(route) : undefined;
+              const html = await config.template({ route, meta });
+              srcHash = contentHash(Buffer.from(html, "utf-8"));
+            } else {
               const res = await fetch(url);
               const html = await res.text();
-              const srcHash = contentHash(Buffer.from(html, "utf-8"));
-              const existing = manifest[route];
+              srcHash = contentHash(Buffer.from(html, "utf-8"));
+            }
+            if (srcHash) sourceHashes.set(route, srcHash);
+          } catch (err) {
+            logger.debug(
+              `Could not calculate source hash for ${route}: ${err}`,
+            );
+          }
 
-              if (existing?.sourceHash === srcHash) {
-                logger.info(`Skipping (unchanged): ${route}`);
-                report.addSkip(route);
-                return;
-              }
-
-              sourceHashes.set(route, srcHash);
-            } catch {
-              logger.debug(
-                `Could not fetch ${url} for incremental check, rendering anyway.`,
-              );
+          // ── Incremental Skip Check ──
+          if (config.incremental && srcHash) {
+            const existing = manifest[route];
+            if (existing?.sourceHash === srcHash) {
+              logger.info(`Skipping (unchanged): ${route}`);
+              report.addSkip(route);
+              return;
             }
           }
 
@@ -156,16 +164,15 @@ export async function runPipeline(ctx: PipelineContext): Promise<BuildReport> {
           // ── Stage 5: Persist ──
           await writeArtifact(outputPath, optimizedBuffer);
 
-          // ── Stage 6: Manifest ──
+          // ── Stage 6: Manifest (collect for later update) ──
           const hash = contentHash(optimizedBuffer);
-          const entry: ManifestEntry = {
+          batchManifestEntries.push({
             route,
             outputPath,
             hash,
             sourceHash: sourceHashes.get(route),
             generatedAt: new Date().toISOString(),
-          };
-          manifest = updateManifestEntry(manifest, entry);
+          });
 
           report.addSuccess(route);
         } catch (err) {
@@ -181,6 +188,11 @@ export async function runPipeline(ctx: PipelineContext): Promise<BuildReport> {
         }
       }),
     );
+
+    // Update manifest from this batch (synchronously to avoid race conditions)
+    for (const entry of batchManifestEntries) {
+      manifest = updateManifestEntry(manifest, entry);
+    }
   }
 
   // Write final manifest

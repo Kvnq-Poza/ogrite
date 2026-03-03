@@ -123,7 +123,7 @@ export interface OgriteConfig {
   normalize?: NormalizeOptions;
   meta?: MetaResolver;
   autoMeta?: AutoMetaOptions;
-  logLevel?: "silent" | "info" | "debug";
+  logLevel?: "silent" | "error" | "warn" | "info" | "debug";
 }
 
 // ── Generator ───────────────────────────────────────────────────────
@@ -211,5 +211,5 @@ export interface ResolvedConfig {
   normalize: NormalizeOptions;
   meta?: MetaResolver;
   autoMeta?: AutoMetaOptions;
-  logLevel: "silent" | "info" | "debug";
+  logLevel: "silent" | "error" | "warn" | "info" | "debug";
 }

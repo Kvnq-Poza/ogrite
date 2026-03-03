@@ -5,6 +5,7 @@ import { generateCommand } from "./generate.js";
 import { watchCommand } from "./watch.js";
 import { checkCommand } from "./check.js";
 import { cleanCommand } from "./clean.js";
+import { previewCommand } from "./preview.js";
 
 const program = new Command();
 
@@ -55,6 +56,14 @@ program
   .description("Remove all generated artifacts and clear the manifest.")
   .action(async () => {
     await cleanCommand();
+  });
+
+program
+  .command("preview")
+  .description("Serve a local HTML gallery of all generated OG images.")
+  .option("-p, --port <number>", "Port to serve the gallery on", parseInt, 4000)
+  .action(async (options) => {
+    await previewCommand({ port: options.port });
   });
 
 program.parse();

@@ -52,6 +52,24 @@ const features = [
       "Playwright-powered screenshots with custom viewports, wait conditions, and element capture.",
   },
   {
+    icon: Layers,
+    title: "HTML Templates",
+    description:
+      "Use your own HTML generation logic (React, Vue, plain strings) instead of screenshotting live URLs.",
+  },
+  {
+    icon: Camera, // Reusing Camera icon for now, as per snippet
+    title: "Local Preview Gallery",
+    description:
+      "Instantly browse all your generated Open Graph images in a clean, local web UI with one CLI command.",
+  },
+  {
+    icon: Terminal, // Reusing Terminal icon for now, as per snippet
+    title: "Auto Meta Tag Injection",
+    description:
+      "Instantly inject og:image tags into your generated static HTML files, saving you manual config setups.",
+  },
+  {
     icon: Zap,
     title: "Optimized output",
     description:

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, Menu, X } from "lucide-react";
 import { FadeIn } from "../animations/FadeIn";
 import { CodeBlock } from "../CodeBlock";
+import { DocCard } from "../DocCard";
 
 /* scroll helper — accounts for fixed header height (64px) + 16px buffer */
 const HEADER_OFFSET = 80;
@@ -394,171 +395,144 @@ export default defineConfig({
                 </div>
 
                 {/* baseUrl */}
-                <div id="config-baseurl" className="mb-8 scroll-mt-24">
-                  <h3 className="text-xl font-semibold mb-2">baseUrl</h3>
-                  <div className="bg-[var(--background-surface)] rounded-xl p-5 border border-[var(--border-subtle)]">
-                    <p className="text-sm text-[var(--text-secondary)]">
-                      <strong className="text-[var(--text-primary)]">
-                        Required.
-                      </strong>{" "}
-                      The origin of your running application. Ogrite navigates
-                      Playwright to{" "}
-                      <code className="text-[var(--accent-primary)]">{`\${baseUrl}\${route}`}</code>{" "}
-                      for each discovered route. Trailing slashes are stripped
-                      automatically.
-                    </p>
-                    <CodeBlock
-                      code={`baseUrl: 'http://localhost:3000'`}
-                      language="typescript"
-                    />
-                  </div>
-                </div>
+                <DocCard id="config-baseurl" title="baseUrl">
+                  <p className="text-sm text-[var(--text-secondary)]">
+                    <strong className="text-[var(--text-primary)]">
+                      Required.
+                    </strong>{" "}
+                    The origin of your running application. Ogrite navigates
+                    Playwright to{" "}
+                    <code className="text-[var(--accent-primary)]">{`\${baseUrl}\${route}`}</code>{" "}
+                    for each discovered route. Trailing slashes are stripped
+                    automatically.
+                  </p>
+                  <CodeBlock
+                    code={`baseUrl: 'http://localhost:3000'`}
+                    language="typescript"
+                  />
+                </DocCard>
 
                 {/* outputDir */}
-                <div id="config-outputdir" className="mb-8 scroll-mt-24">
-                  <h3 className="text-xl font-semibold mb-2">outputDir</h3>
-                  <div className="bg-[var(--background-surface)] rounded-xl p-5 border border-[var(--border-subtle)]">
-                    <p className="text-sm text-[var(--text-secondary)]">
-                      <strong className="text-[var(--text-primary)]">
-                        Required.
-                      </strong>{" "}
-                      Where generated images are written. Typically inside your
-                      public directory so the images are served as static
-                      assets.
-                    </p>
-                    <CodeBlock
-                      code={`outputDir: 'public/og'`}
-                      language="typescript"
-                    />
-                  </div>
-                </div>
+                <DocCard id="config-outputdir" title="outputDir">
+                  <p className="text-sm text-[var(--text-secondary)]">
+                    <strong className="text-[var(--text-primary)]">
+                      Required.
+                    </strong>{" "}
+                    Where generated images are written. Typically inside your
+                    public directory so the images are served as static assets.
+                  </p>
+                  <CodeBlock
+                    code={`outputDir: 'public/og'`}
+                    language="typescript"
+                  />
+                </DocCard>
 
                 {/* concurrency */}
-                <div id="config-concurrency" className="mb-8 scroll-mt-24">
-                  <h3 className="text-xl font-semibold mb-2">concurrency</h3>
-                  <div className="bg-[var(--background-surface)] rounded-xl p-5 border border-[var(--border-subtle)]">
-                    <p className="text-sm text-[var(--text-secondary)]">
-                      Maximum number of routes rendered in parallel.{" "}
-                      <strong className="text-[var(--text-primary)]">
-                        Default:{" "}
-                        <code className="text-[var(--accent-primary)]">4</code>
-                      </strong>
-                    </p>
-                  </div>
-                </div>
+                <DocCard id="config-concurrency" title="concurrency">
+                  <p className="text-sm text-[var(--text-secondary)]">
+                    Maximum number of routes rendered in parallel.{" "}
+                    <strong className="text-[var(--text-primary)]">
+                      Default:{" "}
+                      <code className="text-[var(--accent-primary)]">4</code>
+                    </strong>
+                  </p>
+                </DocCard>
 
                 {/* logLevel */}
-                <div id="config-loglevel" className="mb-8 scroll-mt-24">
-                  <h3 className="text-xl font-semibold mb-2">logLevel</h3>
-                  <div className="bg-[var(--background-surface)] rounded-xl p-5 border border-[var(--border-subtle)]">
-                    <p className="text-sm text-[var(--text-secondary)]">
-                      Controls CLI output verbosity. Accepted values:{" "}
-                      <code className="text-[var(--accent-primary)]">
-                        &quot;silent&quot;
-                      </code>{" "}
-                      |{" "}
+                <DocCard id="config-loglevel" title="logLevel">
+                  <p className="text-sm text-[var(--text-secondary)]">
+                    Controls CLI output verbosity. Accepted values:{" "}
+                    <code className="text-[var(--accent-primary)]">
+                      &quot;silent&quot;
+                    </code>{" "}
+                    |{" "}
+                    <code className="text-[var(--accent-primary)]">
+                      &quot;info&quot;
+                    </code>{" "}
+                    |{" "}
+                    <code className="text-[var(--accent-primary)]">
+                      &quot;debug&quot;
+                    </code>
+                    .{" "}
+                    <strong className="text-[var(--text-primary)]">
+                      Default:{" "}
                       <code className="text-[var(--accent-primary)]">
                         &quot;info&quot;
-                      </code>{" "}
-                      |{" "}
-                      <code className="text-[var(--accent-primary)]">
-                        &quot;debug&quot;
                       </code>
-                      .{" "}
-                      <strong className="text-[var(--text-primary)]">
-                        Default:{" "}
-                        <code className="text-[var(--accent-primary)]">
-                          &quot;info&quot;
-                        </code>
-                      </strong>
-                    </p>
-                  </div>
-                </div>
+                    </strong>
+                  </p>
+                </DocCard>
 
                 {/* viewport */}
-                <div id="config-viewport" className="mb-8 scroll-mt-24">
-                  <h3 className="text-xl font-semibold mb-2">viewport</h3>
-                  <div className="bg-[var(--background-surface)] rounded-xl p-5 border border-[var(--border-subtle)]">
-                    <p className="text-sm text-[var(--text-secondary)] mb-3">
-                      Defines the browser viewport used for rendering.
-                    </p>
-                    <CodeBlock
-                      code={`viewport: {
+                <DocCard id="config-viewport" title="viewport">
+                  <p className="text-sm text-[var(--text-secondary)] mb-3">
+                    Defines the browser viewport used for rendering.
+                  </p>
+                  <CodeBlock
+                    code={`viewport: {
   width: 1200,           // default: 1200
   height: 630,           // default: 630
   deviceScaleFactor: 2,  // default: 2
 }`}
-                      language="typescript"
-                    />
-                  </div>
-                </div>
+                    language="typescript"
+                  />
+                </DocCard>
 
                 {/* wait */}
-                <div id="config-wait" className="mb-8 scroll-mt-24">
-                  <h3 className="text-xl font-semibold mb-2">wait</h3>
-                  <div className="bg-[var(--background-surface)] rounded-xl p-5 border border-[var(--border-subtle)]">
-                    <p className="text-sm text-[var(--text-secondary)] mb-3">
-                      Conditions for when the screenshot is taken after
-                      navigation.
-                    </p>
-                    <CodeBlock
-                      code={`wait: {
+                <DocCard id="config-wait" title="wait">
+                  <p className="text-sm text-[var(--text-secondary)] mb-3">
+                    Conditions for when the screenshot is taken after
+                    navigation.
+                  </p>
+                  <CodeBlock
+                    code={`wait: {
   type: 'networkidle',  // 'load' | 'domcontentloaded' | 'networkidle' (default)
   timeoutMs: 30000,     // default: 30000
   extraDelayMs: 500,    // additional wait after condition (default: 500)
 }`}
-                      language="typescript"
-                    />
-                  </div>
-                </div>
+                    language="typescript"
+                  />
+                </DocCard>
 
                 {/* capture */}
-                <div id="config-capture" className="mb-8 scroll-mt-24">
-                  <h3 className="text-xl font-semibold mb-2">capture</h3>
-                  <div className="bg-[var(--background-surface)] rounded-xl p-5 border border-[var(--border-subtle)]">
-                    <p className="text-sm text-[var(--text-secondary)] mb-3">
-                      Controls what part of the page is captured.
-                    </p>
-                    <CodeBlock
-                      code={`capture: {
+                <DocCard id="config-capture" title="capture">
+                  <p className="text-sm text-[var(--text-secondary)] mb-3">
+                    Controls what part of the page is captured.
+                  </p>
+                  <CodeBlock
+                    code={`capture: {
   type: 'viewport',     // 'fullpage' | 'viewport' | 'element' (default: 'viewport')
   selector: null,       // CSS selector when type is 'element'
   format: 'png',        // 'png' | 'jpeg' | 'webp' (default: 'png')
   quality: 90,          // 0-100 (default: 90)
 }`}
-                      language="typescript"
-                    />
-                  </div>
-                </div>
+                    language="typescript"
+                  />
+                </DocCard>
 
                 {/* compression */}
-                <div id="config-compression" className="mb-8 scroll-mt-24">
-                  <h3 className="text-xl font-semibold mb-2">compression</h3>
-                  <div className="bg-[var(--background-surface)] rounded-xl p-5 border border-[var(--border-subtle)]">
-                    <p className="text-sm text-[var(--text-secondary)] mb-3">
-                      Post-capture optimisation via Sharp.
-                    </p>
-                    <CodeBlock
-                      code={`compression: {
+                <DocCard id="config-compression" title="compression">
+                  <p className="text-sm text-[var(--text-secondary)] mb-3">
+                    Post-capture optimisation via Sharp.
+                  </p>
+                  <CodeBlock
+                    code={`compression: {
   enabled: true,       // default: true
   target: 'webp',     // 'png' | 'webp' | 'avif' (default: 'webp')
   quality: 80,         // default: 80
   maxWidth: 1200,      // resize if wider (default: 1200)
 }`}
-                      language="typescript"
-                    />
-                  </div>
-                </div>
+                    language="typescript"
+                  />
+                </DocCard>
 
                 {/* routeDiscovery */}
-                <div id="config-routediscovery" className="mb-8 scroll-mt-24">
-                  <h3 className="text-xl font-semibold mb-2">routeDiscovery</h3>
-                  <div className="bg-[var(--background-surface)] rounded-xl p-5 border border-[var(--border-subtle)]">
-                    <p className="text-sm text-[var(--text-secondary)] mb-3">
-                      How Ogrite finds directions to generate images for.
-                    </p>
-                    <CodeBlock
-                      code={`// Strategy: 'sitemap' | 'filesystem' | 'manual' | 'custom'
+                <DocCard id="config-routediscovery" title="routeDiscovery">
+                  <p className="text-sm text-[var(--text-secondary)] mb-3">
+                    How Ogrite finds directions to generate images for.
+                  </p>
+                  <CodeBlock
+                    code={`// Strategy: 'sitemap' | 'filesystem' | 'manual' | 'custom'
 
 // Sitemap — parses your sitemap.xml
 routeDiscovery: {
@@ -583,130 +557,115 @@ routeDiscovery: {
   strategy: 'custom',
   resolver: async () => ['/', '/pricing'],
 }`}
-                      language="typescript"
-                    />
-                    <p className="text-xs text-[var(--text-muted)] mt-3">
-                      <strong>Note:</strong> The filesystem strategy only
-                      detects static routes. Dynamic route segments (e.g.{" "}
-                      <code className="text-[var(--accent-primary)]">
-                        [slug]
-                      </code>
-                      ,{" "}
-                      <code className="text-[var(--accent-primary)]">
-                        [...params]
-                      </code>
-                      ) are skipped because their concrete values cannot be
-                      determined from the filesystem. For dynamic routes, use
-                      the <strong>sitemap</strong> or <strong>custom</strong>{" "}
-                      strategy.
-                    </p>
-                  </div>
-                </div>
+                    language="typescript"
+                  />
+                  <p className="text-xs text-[var(--text-muted)] mt-3">
+                    <strong>Note:</strong> The filesystem strategy only detects
+                    static routes. Dynamic route segments (e.g.{" "}
+                    <code className="text-[var(--accent-primary)]">[slug]</code>
+                    ,{" "}
+                    <code className="text-[var(--accent-primary)]">
+                      [...params]
+                    </code>
+                    ) are skipped because their concrete values cannot be
+                    determined from the filesystem. For dynamic routes, use the{" "}
+                    <strong>sitemap</strong> or <strong>custom</strong>{" "}
+                    strategy.
+                  </p>
+                </DocCard>
 
                 {/* normalize */}
-                <div id="config-normalize" className="mb-8 scroll-mt-24">
-                  <h3 className="text-xl font-semibold mb-2">normalize</h3>
-                  <div className="bg-[var(--background-surface)] rounded-xl p-5 border border-[var(--border-subtle)]">
-                    <p className="text-sm text-[var(--text-secondary)] mb-3">
-                      Controls how route paths are mapped to file names. See{" "}
-                      <a
-                        href="#normalization"
-                        className="text-[var(--accent-primary)] underline"
-                      >
-                        Route Normalization
-                      </a>{" "}
-                      for details.
-                    </p>
-                    <CodeBlock
-                      code={`normalize: {
+                <DocCard id="config-normalize" title="normalize">
+                  <p className="text-sm text-[var(--text-secondary)] mb-3">
+                    Controls how route paths are mapped to file names. See{" "}
+                    <a
+                      href="#normalization"
+                      className="text-[var(--accent-primary)] underline"
+                    >
+                      Route Normalization
+                    </a>{" "}
+                    for details.
+                  </p>
+                  <CodeBlock
+                    code={`normalize: {
   baseOutput: 'public/og',           // defaults to outputDir
   paramStrategy: { type: 'slugify' },// 'keep' | 'hash' | 'slugify'
   homeFileName: 'home',              // name for the / route
   sanitize: (segment) => segment,    // optional custom sanitizer
 }`}
-                      language="typescript"
-                    />
-                  </div>
-                </div>
+                    language="typescript"
+                  />
+                </DocCard>
 
                 {/* meta */}
-                <div id="config-meta" className="mb-8 scroll-mt-24">
-                  <h3 className="text-xl font-semibold mb-2">meta</h3>
-                  <div className="bg-[var(--background-surface)] rounded-xl p-5 border border-[var(--border-subtle)]">
-                    <p className="text-sm text-[var(--text-secondary)] mb-3">
-                      Optional async function that resolves per-route metadata.
-                      Receives a{" "}
-                      <code className="text-[var(--accent-primary)]">
-                        RoutePath
-                      </code>{" "}
-                      and returns a{" "}
-                      <code className="text-[var(--accent-primary)]">
-                        RouteMeta
-                      </code>{" "}
-                      object.
-                    </p>
-                    <CodeBlock
-                      code={`meta: async (route) => ({
+                <DocCard id="config-meta" title="meta">
+                  <p className="text-sm text-[var(--text-secondary)] mb-3">
+                    Optional async function that resolves per-route metadata.
+                    Receives a{" "}
+                    <code className="text-[var(--accent-primary)]">
+                      RoutePath
+                    </code>{" "}
+                    and returns a{" "}
+                    <code className="text-[var(--accent-primary)]">
+                      RouteMeta
+                    </code>{" "}
+                    object.
+                  </p>
+                  <CodeBlock
+                    code={`meta: async (route) => ({
   canonicalPath: route,
-  slug: route.replace(/^\//, ''),
+  slug: route.replace(/^\\//, ''),
 })`}
-                      language="typescript"
-                    />
-                  </div>
-                </div>
+                    language="typescript"
+                  />
+                </DocCard>
 
                 {/* autoMeta */}
-                <div id="config-autometa" className="mb-8 scroll-mt-24">
-                  <h3 className="text-xl font-semibold mb-2">autoMeta</h3>
-                  <div className="bg-[var(--background-surface)] rounded-xl p-5 border border-[var(--border-subtle)]">
-                    <p className="text-sm text-[var(--text-secondary)] mb-3">
-                      Automatically inject{" "}
-                      <code className="text-[var(--accent-primary)]">
-                        &lt;meta property="og:image"&gt;
-                      </code>{" "}
-                      tags into your generated static HTML files after the build
-                      is complete.
-                    </p>
-                    <CodeBlock
-                      code={`autoMeta: {
+                <DocCard id="config-autometa" title="autoMeta">
+                  <p className="text-sm text-[var(--text-secondary)] mb-3">
+                    Automatically inject{" "}
+                    <code className="text-[var(--accent-primary)]">
+                      &lt;meta property="og:image"&gt;
+                    </code>{" "}
+                    tags into your generated static HTML files after the build
+                    is complete.
+                  </p>
+                  <CodeBlock
+                    code={`autoMeta: {
   baseMetaUrl: "https://example.com/og",
   htmlOutputDir: "./dist",
 }`}
-                      language="typescript"
-                    />
-                    <p className="text-sm text-[var(--text-secondary)] mt-3">
-                      If enabled, Ogrite will scan{" "}
-                      <code className="text-[var(--accent-primary)]">
-                        htmlOutputDir
-                      </code>{" "}
-                      for HTML files matching your routes and safely inject the
-                      meta tag right before{" "}
-                      <code className="text-[var(--accent-primary)]">
-                        &lt;/head&gt;
-                      </code>
-                      . If an{" "}
-                      <code className="text-[var(--accent-primary)]">
-                        og:image
-                      </code>{" "}
-                      tag already exists, it is overwritten, making it an
-                      excellent final-step utility for statically generated
-                      sites.
-                    </p>
-                  </div>
-                </div>
+                    language="typescript"
+                  />
+                  <p className="text-sm text-[var(--text-secondary)] mt-3">
+                    If enabled, Ogrite will scan{" "}
+                    <code className="text-[var(--accent-primary)]">
+                      htmlOutputDir
+                    </code>{" "}
+                    for HTML files matching your routes and safely inject the
+                    meta tag right before{" "}
+                    <code className="text-[var(--accent-primary)]">
+                      &lt;/head&gt;
+                    </code>
+                    . If an{" "}
+                    <code className="text-[var(--accent-primary)]">
+                      og:image
+                    </code>{" "}
+                    tag already exists, it is overwritten, making it an
+                    excellent final-step utility for statically generated sites.
+                  </p>
+                </DocCard>
 
                 {/* template */}
-                <div id="config-template" className="mb-8 scroll-mt-24">
-                  <h3 className="text-xl font-semibold mb-2">template</h3>
-                  <div className="bg-[var(--background-surface)] rounded-xl p-5 border border-[var(--border-subtle)]">
-                    <p className="text-sm text-[var(--text-secondary)] mb-3">
-                      Instead of having Playwright navigate to live URLs, you
-                      can provide a template function. Ogrite will take the HTML
-                      string returned by this function, inject it into the
-                      browser, and screenshot it.
-                    </p>
-                    <CodeBlock
-                      code={`template: async ({ route, meta }) => {
+                <DocCard id="config-template" title="template">
+                  <p className="text-sm text-[var(--text-secondary)] mb-3">
+                    Instead of having Playwright navigate to live URLs, you can
+                    provide a template function. Ogrite will take the HTML
+                    string returned by this function, inject it into the
+                    browser, and screenshot it.
+                  </p>
+                  <CodeBlock
+                    code={`template: async ({ route, meta }) => {
   return \`
     <div style="width: 1200px; height: 630px; display: flex; align-items: center; justify-content: center;">
       <h1>\${meta?.title ?? 'Default Title'}</h1>
@@ -714,88 +673,75 @@ routeDiscovery: {
     </div>
   \`;
 }`}
-                      language="typescript"
-                    />
-                    <p className="text-sm text-[var(--text-secondary)] mt-3">
-                      This is excellent for generating deterministic static
-                      cards without needing a web server running your app
-                      routes. It is recommended to inline all CSS and
-                      base64-encode any images for the best performance and
-                      reliability.
-                    </p>
-                  </div>
-                </div>
+                    language="typescript"
+                  />
+                  <p className="text-sm text-[var(--text-secondary)] mt-3">
+                    This is excellent for generating deterministic static cards
+                    without needing a web server running your app routes. It is
+                    recommended to inline all CSS and base64-encode any images
+                    for the best performance and reliability.
+                  </p>
+                </DocCard>
 
                 {/* inject */}
-                <div id="config-inject" className="mb-8 scroll-mt-24">
-                  <h3 className="text-xl font-semibold mb-2">inject</h3>
-                  <div className="bg-[var(--background-surface)] rounded-xl p-5 border border-[var(--border-subtle)]">
-                    <p className="text-sm text-[var(--text-secondary)] mb-3">
-                      Inject custom CSS and/or JavaScript into the page before
-                      capturing a screenshot. Useful for removing cookie
-                      banners, overlays, or toggling dark mode.
-                    </p>
-                    <CodeBlock
-                      code={`inject: {
+                <DocCard id="config-inject" title="inject">
+                  <p className="text-sm text-[var(--text-secondary)] mb-3">
+                    Inject custom CSS and/or JavaScript into the page before
+                    capturing a screenshot. Useful for removing cookie banners,
+                    overlays, or toggling dark mode.
+                  </p>
+                  <CodeBlock
+                    code={`inject: {
   css: 'body { background: white !important; }',  // injected via <style> tag
   js: "document.querySelector('.cookie-banner')?.remove();",  // evaluated in page context
 }`}
-                      language="typescript"
-                    />
-                    <p className="text-xs text-[var(--text-muted)] mt-3">
-                      Both fields default to empty strings (no injection). CSS
-                      is applied via{" "}
-                      <code className="text-[var(--accent-primary)]">
-                        page.addStyleTag()
-                      </code>{" "}
-                      and JS via{" "}
-                      <code className="text-[var(--accent-primary)]">
-                        page.evaluate()
-                      </code>
-                      .
-                    </p>
-                  </div>
-                </div>
+                    language="typescript"
+                  />
+                  <p className="text-xs text-[var(--text-muted)] mt-3">
+                    Both fields default to empty strings (no injection). CSS is
+                    applied via{" "}
+                    <code className="text-[var(--accent-primary)]">
+                      page.addStyleTag()
+                    </code>{" "}
+                    and JS via{" "}
+                    <code className="text-[var(--accent-primary)]">
+                      page.evaluate()
+                    </code>
+                    .
+                  </p>
+                </DocCard>
 
                 {/* incremental */}
-                <div id="config-incremental" className="mb-8 scroll-mt-24">
-                  <h3 className="text-xl font-semibold mb-2">incremental</h3>
-                  <div className="bg-[var(--background-surface)] rounded-xl p-5 border border-[var(--border-subtle)]">
-                    <p className="text-sm text-[var(--text-secondary)] mb-3">
-                      Enable incremental builds to significantly speed up CI and
-                      local regeneration.
-                    </p>
-                    <CodeBlock
-                      code={`incremental: true`}
-                      language="typescript"
-                    />
-                    <p className="text-sm text-[var(--text-secondary)] mt-3 mb-3">
-                      When enabled, Ogrite fetches the target route's HTML
-                      before taking a screenshot. It computes a hash of the HTML
-                      source and compares it to the previous run (stored in{" "}
-                      <code className="text-[var(--accent-primary)]">
-                        .ogrite-manifest.json
-                      </code>
-                      ). If the HTML hasn't changed, Ogrite skips the Playwright
-                      rendering and Sharp optimization steps.
-                    </p>
-                    <p className="text-xs text-[var(--text-muted)] mt-3">
-                      Defaults to{" "}
-                      <code className="text-[var(--accent-primary)]">
-                        false
-                      </code>
-                      . Can be overridden via CLI flags:{" "}
-                      <code className="text-[var(--accent-primary)]">
-                        --incremental
-                      </code>{" "}
-                      or{" "}
-                      <code className="text-[var(--accent-primary)]">
-                        --force
-                      </code>
-                      .
-                    </p>
-                  </div>
-                </div>
+                <DocCard id="config-incremental" title="incremental">
+                  <p className="text-sm text-[var(--text-secondary)] mb-3">
+                    Enable incremental builds to significantly speed up CI and
+                    local regeneration.
+                  </p>
+                  <CodeBlock code={`incremental: true`} language="typescript" />
+                  <p className="text-sm text-[var(--text-secondary)] mt-3 mb-3">
+                    When enabled, Ogrite fetches the target route's HTML before
+                    taking a screenshot. It computes a hash of the HTML source
+                    and compares it to the previous run (stored in{" "}
+                    <code className="text-[var(--accent-primary)]">
+                      .ogrite-manifest.json
+                    </code>
+                    ). If the HTML hasn't changed, Ogrite skips the Playwright
+                    rendering and Sharp optimization steps.
+                  </p>
+                  <p className="text-xs text-[var(--text-muted)] mt-3">
+                    Defaults to{" "}
+                    <code className="text-[var(--accent-primary)]">false</code>.
+                    Can be overridden via CLI flags:{" "}
+                    <code className="text-[var(--accent-primary)]">
+                      --incremental
+                    </code>{" "}
+                    or{" "}
+                    <code className="text-[var(--accent-primary)]">
+                      --force
+                    </code>
+                    .
+                  </p>
+                </DocCard>
 
                 {/* Full defaults */}
                 <div id="config-defaults" className="scroll-mt-24">
@@ -852,15 +798,13 @@ routeDiscovery: {
 
                 <div className="space-y-10">
                   {/* Vite */}
-                  <div id="framework-vite" className="scroll-mt-24">
-                    <h3 className="text-xl font-semibold mb-3">Vite</h3>
-                    <div className="bg-[var(--background-surface)] rounded-xl p-5 border border-[var(--border-subtle)]">
-                      <p className="text-sm text-[var(--text-secondary)] mb-3">
-                        Add the Ogrite Vite plugin to automatically run image
-                        generation when your Vite build completes.
-                      </p>
-                      <CodeBlock
-                        code={`// vite.config.ts
+                  <DocCard id="framework-vite" title="Vite">
+                    <p className="text-sm text-[var(--text-secondary)] mb-3">
+                      Add the Ogrite Vite plugin to automatically run image
+                      generation when your Vite build completes.
+                    </p>
+                    <CodeBlock
+                      code={`// vite.config.ts
 import { defineConfig } from 'vite';
 import { ogriteVitePlugin } from '@ogrite/ogrite/plugins/vite';
 
@@ -869,62 +813,56 @@ export default defineConfig({
     ogriteVitePlugin(),
   ],
 });`}
-                        language="typescript"
-                      />
-                    </div>
-                  </div>
+                      language="typescript"
+                    />
+                  </DocCard>
 
                   {/* Next.js */}
-                  <div id="framework-next" className="scroll-mt-24">
-                    <h3 className="text-xl font-semibold mb-3">Next.js</h3>
-                    <div className="bg-[var(--background-surface)] rounded-xl p-5 border border-[var(--border-subtle)]">
-                      <p className="text-sm text-[var(--text-secondary)] mb-3">
-                        Use the Next.js wrapper or programmatic utility in your
-                        build scripts.
-                      </p>
-                      <CodeBlock
-                        code={`// next.config.js
+                  <DocCard id="framework-next" title="Next.js">
+                    <p className="text-sm text-[var(--text-secondary)] mb-3">
+                      Use the Next.js wrapper or programmatic utility in your
+                      build scripts.
+                    </p>
+                    <CodeBlock
+                      code={`// next.config.js
 import { withOgrite } from '@ogrite/ogrite/plugins/next';
 
 export default withOgrite({
   reactStrictMode: true,
   // your other next configs
 });`}
-                        language="typescript"
-                      />
-                      <p className="text-sm text-[var(--text-secondary)] mt-3">
-                        Since Next.js doesn't natively expose post-build hooks,
-                        the wrapper logs a reminder locally. It is recommended
-                        to run{" "}
-                        <code className="text-[var(--accent-primary)]">
-                          ogrite generate
-                        </code>{" "}
-                        as a postbuild script in{" "}
-                        <code className="text-[var(--accent-primary)]">
-                          package.json
-                        </code>
-                        : <br />
-                        <code className="text-[var(--accent-primary)]">
-                          "build": "next build && ogrite generate"
-                        </code>
-                      </p>
-                    </div>
-                  </div>
+                      language="typescript"
+                    />
+                    <p className="text-sm text-[var(--text-secondary)] mt-3">
+                      Since Next.js doesn't natively expose post-build hooks,
+                      the wrapper logs a reminder locally. It is recommended to
+                      run{" "}
+                      <code className="text-[var(--accent-primary)]">
+                        ogrite generate
+                      </code>{" "}
+                      as a postbuild script in{" "}
+                      <code className="text-[var(--accent-primary)]">
+                        package.json
+                      </code>
+                      : <br />
+                      <code className="text-[var(--accent-primary)]">
+                        "build": "next build && ogrite generate"
+                      </code>
+                    </p>
+                  </DocCard>
 
                   {/* Astro */}
-                  <div id="framework-astro" className="scroll-mt-24">
-                    <h3 className="text-xl font-semibold mb-3">Astro</h3>
-                    <div className="bg-[var(--background-surface)] rounded-xl p-5 border border-[var(--border-subtle)]">
-                      <p className="text-sm text-[var(--text-secondary)] mb-3">
-                        Hook into Astro's{" "}
-                        <code className="text-[var(--accent-primary)]">
-                          astro:build:done
-                        </code>{" "}
-                        target to generate images perfectly timed after your
-                        static pages are emitted.
-                      </p>
-                      <CodeBlock
-                        code={`// astro.config.mjs
+                  <DocCard id="framework-astro" title="Astro">
+                    <p className="text-sm text-[var(--text-secondary)] mb-3">
+                      Hook into Astro's{" "}
+                      <code className="text-[var(--accent-primary)]">
+                        astro:build:done
+                      </code>{" "}
+                      target to generate images perfectly timed after your
+                      static pages are emitted.
+                    </p>
+                    <CodeBlock
+                      code={`// astro.config.mjs
 import { defineConfig } from 'astro/config';
 import { ogriteAstroPlugin } from '@ogrite/ogrite/plugins/astro';
 
@@ -933,10 +871,9 @@ export default defineConfig({
     ogriteAstroPlugin(),
   ],
 });`}
-                        language="typescript"
-                      />
-                    </div>
-                  </div>
+                      language="typescript"
+                    />
+                  </DocCard>
                 </div>
               </section>
 
@@ -958,10 +895,7 @@ export default defineConfig({
                 </p>
 
                 <div className="space-y-10">
-                  <div id="cli-generate" className="scroll-mt-24">
-                    <h3 className="text-xl font-semibold mb-2">
-                      ogrite generate
-                    </h3>
+                  <DocCard id="cli-generate" title="ogrite generate">
                     <p className="text-[var(--text-secondary)] mb-3">
                       Run the full pipeline: discover routes → render → optimize
                       → write artifacts → update manifest.
@@ -982,10 +916,9 @@ export default defineConfig({
                         </li>
                       </ul>
                     </div>
-                  </div>
+                  </DocCard>
 
-                  <div id="cli-watch" className="scroll-mt-24">
-                    <h3 className="text-xl font-semibold mb-2">ogrite watch</h3>
+                  <DocCard id="cli-watch" title="ogrite watch">
                     <p className="text-[var(--text-secondary)] mb-3">
                       Start an incremental watcher. Monitors your source files
                       and regenerates affected images on change. Uses{" "}
@@ -999,10 +932,9 @@ export default defineConfig({
                       language="bash"
                       variant="terminal"
                     />
-                  </div>
+                  </DocCard>
 
-                  <div id="cli-check" className="scroll-mt-24">
-                    <h3 className="text-xl font-semibold mb-2">ogrite check</h3>
+                  <DocCard id="cli-check" title="ogrite check">
                     <p className="text-[var(--text-secondary)] mb-3">
                       Validate that current artifacts on disk match the manifest
                       and route list. Exits with a non-zero code if stale or
@@ -1013,10 +945,9 @@ export default defineConfig({
                       language="bash"
                       variant="terminal"
                     />
-                  </div>
+                  </DocCard>
 
-                  <div id="cli-clean" className="scroll-mt-24">
-                    <h3 className="text-xl font-semibold mb-2">ogrite clean</h3>
+                  <DocCard id="cli-clean" title="ogrite clean">
                     <p className="text-[var(--text-secondary)] mb-3">
                       Remove all generated artifacts and clear the{" "}
                       <code className="text-[var(--accent-primary)]">
@@ -1029,7 +960,7 @@ export default defineConfig({
                       language="bash"
                       variant="terminal"
                     />
-                  </div>
+                  </DocCard>
                 </div>
               </section>
 
@@ -1042,10 +973,10 @@ export default defineConfig({
                 </p>
 
                 <div className="space-y-10">
-                  <div id="api-createoggenerator" className="scroll-mt-24">
-                    <h3 className="text-xl font-semibold mb-3">
-                      createOgGenerator(config)
-                    </h3>
+                  <DocCard
+                    id="api-createoggenerator"
+                    title="createOgGenerator(config)"
+                  >
                     <p className="text-[var(--text-secondary)] mb-3">
                       Factory function that accepts an{" "}
                       <code className="text-[var(--accent-primary)]">
@@ -1086,12 +1017,9 @@ const filePath = generator.normalize('/about');
                       language="typescript"
                       filename="build-og.ts"
                     />
-                  </div>
+                  </DocCard>
 
-                  <div id="api-defineconfig" className="scroll-mt-24">
-                    <h3 className="text-xl font-semibold mb-3">
-                      defineConfig(config)
-                    </h3>
+                  <DocCard id="api-defineconfig" title="defineConfig(config)">
                     <p className="text-[var(--text-secondary)] mb-3">
                       Merges your partial config with library defaults and
                       validates required fields. Throws a{" "}
@@ -1119,12 +1047,9 @@ const config = defineConfig({
 // All other fields are filled with defaults`}
                       language="typescript"
                     />
-                  </div>
+                  </DocCard>
 
-                  <div id="api-oggenerator" className="scroll-mt-24">
-                    <h3 className="text-xl font-semibold mb-3">
-                      OgGenerator interface
-                    </h3>
+                  <DocCard id="api-oggenerator" title="OgGenerator interface">
                     <CodeBlock
                       code={`interface OgGenerator {
   /** Run the full pipeline for all discovered routes. */
@@ -1138,10 +1063,9 @@ const config = defineConfig({
 }`}
                       language="typescript"
                     />
-                  </div>
+                  </DocCard>
 
-                  <div id="api-buildreport" className="scroll-mt-24">
-                    <h3 className="text-xl font-semibold mb-3">BuildReport</h3>
+                  <DocCard id="api-buildreport" title="BuildReport">
                     <p className="text-[var(--text-secondary)] mb-3">
                       Returned by{" "}
                       <code className="text-[var(--accent-primary)]">
@@ -1167,7 +1091,7 @@ interface OgriteError {
 }`}
                       language="typescript"
                     />
-                  </div>
+                  </DocCard>
                 </div>
               </section>
 
@@ -1180,10 +1104,10 @@ interface OgriteError {
                   pipeline.
                 </p>
 
-                <div id="runtime-getogimagepath" className="scroll-mt-24">
-                  <h3 className="text-xl font-semibold mb-3">
-                    getOgImagePath(route, manifestDir?)
-                  </h3>
+                <DocCard
+                  id="runtime-getogimagepath"
+                  title="getOgImagePath(route, manifestDir?)"
+                >
                   <p className="text-[var(--text-secondary)] mb-3">
                     Reads the{" "}
                     <code className="text-[var(--accent-primary)]">
@@ -1236,7 +1160,7 @@ const path2 = getOgImagePath('/about', './dist/og');`}
                       </li>
                     </ul>
                   </div>
-                </div>
+                </DocCard>
               </section>
 
               {/* ────────────────── Route Normalization ─────────── */}
@@ -1309,15 +1233,7 @@ const path2 = getOgImagePath('/about', './dist/og');`}
                       Param strategies
                     </h3>
                     <div className="space-y-4">
-                      <div className="bg-[var(--background-surface)] rounded-xl p-5 border border-[var(--border-subtle)]">
-                        <h4 className="font-semibold mb-2">
-                          <code className="text-[var(--accent-primary)]">
-                            slugify
-                          </code>{" "}
-                          <span className="text-xs text-[var(--text-muted)] font-normal">
-                            (default)
-                          </span>
-                        </h4>
+                      <DocCard codeTitle="slugify" isDefault className="!mb-0">
                         <p className="text-sm text-[var(--text-secondary)] mb-2">
                           Lowercases, strips diacritics, replaces spaces with
                           hyphens, removes special characters.
@@ -1326,13 +1242,9 @@ const path2 = getOgImagePath('/about', './dist/og');`}
                           code={`/blog/[slug] → blog/slug.webp`}
                           language="bash"
                         />
-                      </div>
-                      <div className="bg-[var(--background-surface)] rounded-xl p-5 border border-[var(--border-subtle)]">
-                        <h4 className="font-semibold mb-2">
-                          <code className="text-[var(--accent-primary)]">
-                            keep
-                          </code>
-                        </h4>
+                      </DocCard>
+
+                      <DocCard codeTitle="keep" className="!mb-0">
                         <p className="text-sm text-[var(--text-secondary)] mb-2">
                           Strips bracket/brace/colon characters but otherwise
                           keeps the original text.
@@ -1341,13 +1253,9 @@ const path2 = getOgImagePath('/about', './dist/og');`}
                           code={`/blog/[slug] → blog/slug.webp`}
                           language="bash"
                         />
-                      </div>
-                      <div className="bg-[var(--background-surface)] rounded-xl p-5 border border-[var(--border-subtle)]">
-                        <h4 className="font-semibold mb-2">
-                          <code className="text-[var(--accent-primary)]">
-                            hash
-                          </code>
-                        </h4>
+                      </DocCard>
+
+                      <DocCard codeTitle="hash" className="!mb-0">
                         <p className="text-sm text-[var(--text-secondary)] mb-2">
                           Generates a truncated SHA-256 hash of the segment.
                           Configurable length (default 8).
@@ -1356,7 +1264,7 @@ const path2 = getOgImagePath('/about', './dist/og');`}
                           code={`/blog/[slug] → blog/a1b2c3d4.webp`}
                           language="bash"
                         />
-                      </div>
+                      </DocCard>
                     </div>
                   </div>
                 </div>
@@ -1387,13 +1295,18 @@ const path2 = getOgImagePath('/about', './dist/og');`}
   RouteMeta,           // { canonicalPath?, slug?, [key]: unknown }
   MetaResolver,        // (route: RoutePath) => Promise<RouteMeta | undefined>
   OgriteConfig,        // Full user-facing config (all optional except baseUrl, outputDir)
+  ResolvedConfig,      // Fully resolved config with defaults
   OgGenerator,         // { build(), buildRoute(), normalize() }
   BuildReport,         // { success, generated, failed, skipped, durationMs, errors }
   OgriteError,         // { route, type, message, stack? }
-  ManifestEntry,       // { route, outputPath, hash, generatedAt }
+  ManifestEntry,       // { route, outputPath, hash, sourceHash?, generatedAt }
   Manifest,            // Record<string, ManifestEntry>
   Renderer,            // Adapter interface: { init(), render(), close() }
   Optimizer,           // Adapter interface: { optimize() }
+  InjectOptions,       // { css?, js? }
+  TemplateContext,     // { route: RoutePath, meta?: RouteMeta }
+  TemplateFunction,    // (ctx: TemplateContext) => string | Promise<string>
+  AutoMetaOptions,     // { enabled?, htmlDir?, baseUrl? }
 } from '@ogrite/ogrite';`}
                   language="typescript"
                   showLineNumbers

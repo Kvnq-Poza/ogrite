@@ -163,6 +163,49 @@ Using templates is highly recommended when you want complete, deterministic cont
 
 Ogrite supports incremental builds using a `.ogrite-manifest.json` file. When `incremental: true` is configured (or `--incremental` is passed to the CLI), Ogrite evaluates the source HTML of each route. If the HTML matches the hash from the previous run, it safely skips rendering and optimization, radically speeding up large site rebuilds.
 
+## Framework Integrations
+
+Ogrite provides first-class framework plugins for automatic generation hooking into your bundler's build lifecycle.
+
+### Vite
+
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import { ogriteVitePlugin } from "@ogrite/ogrite/plugins/vite";
+
+export default defineConfig({
+  plugins: [ogriteVitePlugin()],
+});
+```
+
+### Astro
+
+```ts
+// astro.config.mjs
+import { defineConfig } from "astro/config";
+import { ogriteAstroPlugin } from "@ogrite/ogrite/plugins/astro";
+
+export default defineConfig({
+  integrations: [ogriteAstroPlugin()],
+});
+```
+
+### Next.js
+
+Next.js does not expose a standard post-build hook, so Ogrite supports it through a wrapper and standard `package.json` recommendations.
+
+```ts
+// next.config.js
+import { withOgrite } from "@ogrite/ogrite/plugins/next";
+
+export default withOgrite({
+  reactStrictMode: true,
+});
+```
+
+Then add to `package.json`: `"build": "next build && ogrite generate"`.
+
 ```ts
 export default defineConfig({
   baseUrl: "http://localhost:3000",

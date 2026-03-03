@@ -15,6 +15,18 @@
     "./runtime": {
       "import": "./dist/runtime.js",
       "require": "./dist/runtime.cjs"
+    },
+    "./plugins/vite": {
+      "import": "./dist/plugins/vite.js",
+      "require": "./dist/plugins/vite.cjs"
+    },
+    "./plugins/astro": {
+      "import": "./dist/plugins/astro.js",
+      "require": "./dist/plugins/astro.cjs"
+    },
+    "./plugins/next": {
+      "import": "./dist/plugins/next.js",
+      "require": "./dist/plugins/next.cjs"
     }
   },
   "main": "./dist/index.cjs",

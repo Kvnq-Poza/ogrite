@@ -62,6 +62,15 @@ const docSections: DocSection[] = [
     ],
   },
   {
+    id: "frameworks",
+    title: "Framework Integrations",
+    subsections: [
+      { id: "framework-vite", title: "Vite" },
+      { id: "framework-next", title: "Next.js" },
+      { id: "framework-astro", title: "Astro" },
+    ],
+  },
+  {
     id: "cli",
     title: "CLI Reference",
     subsections: [
@@ -828,6 +837,106 @@ routeDiscovery: {
                     language="json"
                     showLineNumbers
                   />
+                </div>
+              </section>
+
+              {/* ────────────────── Framework Integrations ────────── */}
+              <section id="frameworks" className="scroll-mt-24">
+                <h2 className="text-3xl font-bold mb-4">
+                  Framework Integrations
+                </h2>
+                <p className="text-[var(--text-secondary)] mb-8">
+                  Ogrite provides first-class plugins for modern frontend
+                  meta-frameworks to run automatically post-build.
+                </p>
+
+                <div className="space-y-10">
+                  {/* Vite */}
+                  <div id="framework-vite" className="scroll-mt-24">
+                    <h3 className="text-xl font-semibold mb-3">Vite</h3>
+                    <div className="bg-[var(--background-surface)] rounded-xl p-5 border border-[var(--border-subtle)]">
+                      <p className="text-sm text-[var(--text-secondary)] mb-3">
+                        Add the Ogrite Vite plugin to automatically run image
+                        generation when your Vite build completes.
+                      </p>
+                      <CodeBlock
+                        code={`// vite.config.ts
+import { defineConfig } from 'vite';
+import { ogriteVitePlugin } from '@ogrite/ogrite/plugins/vite';
+
+export default defineConfig({
+  plugins: [
+    ogriteVitePlugin(),
+  ],
+});`}
+                        language="typescript"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Next.js */}
+                  <div id="framework-next" className="scroll-mt-24">
+                    <h3 className="text-xl font-semibold mb-3">Next.js</h3>
+                    <div className="bg-[var(--background-surface)] rounded-xl p-5 border border-[var(--border-subtle)]">
+                      <p className="text-sm text-[var(--text-secondary)] mb-3">
+                        Use the Next.js wrapper or programmatic utility in your
+                        build scripts.
+                      </p>
+                      <CodeBlock
+                        code={`// next.config.js
+import { withOgrite } from '@ogrite/ogrite/plugins/next';
+
+export default withOgrite({
+  reactStrictMode: true,
+  // your other next configs
+});`}
+                        language="typescript"
+                      />
+                      <p className="text-sm text-[var(--text-secondary)] mt-3">
+                        Since Next.js doesn't natively expose post-build hooks,
+                        the wrapper logs a reminder locally. It is recommended
+                        to run{" "}
+                        <code className="text-[var(--accent-primary)]">
+                          ogrite generate
+                        </code>{" "}
+                        as a postbuild script in{" "}
+                        <code className="text-[var(--accent-primary)]">
+                          package.json
+                        </code>
+                        : <br />
+                        <code className="text-[var(--accent-primary)]">
+                          "build": "next build && ogrite generate"
+                        </code>
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Astro */}
+                  <div id="framework-astro" className="scroll-mt-24">
+                    <h3 className="text-xl font-semibold mb-3">Astro</h3>
+                    <div className="bg-[var(--background-surface)] rounded-xl p-5 border border-[var(--border-subtle)]">
+                      <p className="text-sm text-[var(--text-secondary)] mb-3">
+                        Hook into Astro's{" "}
+                        <code className="text-[var(--accent-primary)]">
+                          astro:build:done
+                        </code>{" "}
+                        target to generate images perfectly timed after your
+                        static pages are emitted.
+                      </p>
+                      <CodeBlock
+                        code={`// astro.config.mjs
+import { defineConfig } from 'astro/config';
+import { ogriteAstroPlugin } from '@ogrite/ogrite/plugins/astro';
+
+export default defineConfig({
+  integrations: [
+    ogriteAstroPlugin(),
+  ],
+});`}
+                        language="typescript"
+                      />
+                    </div>
+                  </div>
                 </div>
               </section>
 

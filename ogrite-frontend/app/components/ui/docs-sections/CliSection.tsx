@@ -47,6 +47,13 @@ const commands = [
       </>
     ),
   },
+  {
+    id: "cli-preview",
+    title: "ogrite preview",
+    code: "npx @ogrite/ogrite preview",
+    description:
+      "Start a local preview server that serves the generated artifacts and the manifest.",
+  },
 ];
 
 export function CliSection() {

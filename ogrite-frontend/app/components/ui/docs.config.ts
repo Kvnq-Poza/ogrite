@@ -76,6 +76,7 @@ export const NAV_SECTIONS: NavSection[] = [
       { id: "cli-watch", title: "ogrite watch" },
       { id: "cli-check", title: "ogrite check" },
       { id: "cli-clean", title: "ogrite clean" },
+      { id: "cli-preview", title: "ogrite preview" },
     ],
   },
   {

@@ -52,6 +52,7 @@ npx @ogrite/ogrite generate
 | `npx @ogrite/ogrite watch`                    | Incremental watcher — regenerate on change     |
 | `npx @ogrite/ogrite check`                    | Validate artifacts against manifest and routes |
 | `npx @ogrite/ogrite clean`                    | Remove all generated artifacts                 |
+| `npx @ogrite/ogrite preview`                  | Preview generated artifacts                    |
 
 ## Route Discovery Strategies
 
